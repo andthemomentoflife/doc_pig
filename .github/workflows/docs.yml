@@ -35,13 +35,10 @@ jobs:
           cd src/docs
           make html
 
-      - name: Debug - find build output
-        run: find . -type d -name "_build"
-
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: src/docs/_build/html
+          path: src/docs/build/html
 
   deploy:
     needs: build
