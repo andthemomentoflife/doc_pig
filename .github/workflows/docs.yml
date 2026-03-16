@@ -30,14 +30,13 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-
-      - name: Debug - show current directory
-        run: ls
-
       - name: Build Sphinx docs
         run: |
           cd src/docs
           make html
+
+      - name: Debug - find build output
+        run: find . -type d -name "_build"
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
