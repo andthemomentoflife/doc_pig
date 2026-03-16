@@ -16,13 +16,22 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          pip install sphinx sphinx-rtd-theme
+
       - name: Install dependencies
         run: |
           pip install sphinx
 
       - name: Build docs
         run: |
-          cd pig_doc/docs
+          cd pig_doc/src/docs
           make html
 
       - name: Upload artifact
