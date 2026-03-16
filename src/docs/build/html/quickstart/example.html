@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Example &mdash; PIG 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=e1a16310" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=8d563738"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Glossary" href="../commons.html" />
+    <link rel="prev" title="Configuration" href="configuration.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            PIG
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="quickstart.html">Quickstart</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html">Configuration</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Example</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#example-code">Example Code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#running-the-example">Running the Example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#expected-output">Expected Output</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#notes">Notes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../commons.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pig.html">API docs</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PIG</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="quickstart.html">Quickstart</a></li>
+      <li class="breadcrumb-item active">Example</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/quickstart/example.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="example">
+<h1>Example<a class="headerlink" href="#example" title="Link to this heading"></a></h1>
+<p>This section demonstrates how to run the main functionality of the project using a simple example. The example is designed to illustrate the core features and provide a starting point for users.</p>
+<section id="example-code">
+<h2>Example Code<a class="headerlink" href="#example-code" title="Link to this heading"></a></h2>
+<p>The following example shows the core logic used in this project. Suppose you want to migrate <code class="docutils literal notranslate"><span class="pre">aiohttp.ClientSession.get</span></code> to <code class="docutils literal notranslate"><span class="pre">httpx.AsyncClient.get</span></code>. The code snippet below demonstrates how to achieve this.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">  1</span><span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="linenos">  2</span><span class="kn">import</span> <span class="nn">ast</span>
+<span class="linenos">  3</span>
+<span class="linenos">  4</span><span class="kn">from</span> <span class="nn">pig.synth.sketch</span> <span class="kn">import</span> <span class="n">migrator</span><span class="p">,</span> <span class="n">preparation</span>
+<span class="linenos">  5</span><span class="kn">from</span> <span class="nn">pig.llm.query</span> <span class="kn">import</span> <span class="n">ask_llm</span>
+<span class="linenos">  6</span><span class="kn">from</span> <span class="nn">pig.mapping.compare_arg</span> <span class="kn">import</span> <span class="n">api_mapping</span>
+<span class="linenos">  7</span><span class="kn">from</span> <span class="nn">pig.mapping.api_lst</span> <span class="kn">import</span> <span class="n">get_apis</span>
+<span class="linenos">  8</span><span class="kn">from</span> <span class="nn">pig.synth.cens</span> <span class="kn">import</span> <span class="n">CENs</span>
+<span class="linenos">  9</span>
+<span class="linenos"> 10</span>
+<span class="linenos"> 11</span><span class="c1"># ---------------------------------------------------------------------</span>
+<span class="linenos"> 12</span><span class="c1"># Configuration</span>
+<span class="linenos"> 13</span><span class="c1"># ---------------------------------------------------------------------</span>
+<span class="linenos"> 14</span>
+<span class="linenos"> 15</span><span class="n">OLD_LIB</span> <span class="o">=</span> <span class="s2">&quot;aiohttp&quot;</span>
+<span class="linenos"> 16</span><span class="n">NEW_LIB</span> <span class="o">=</span> <span class="s2">&quot;httpx&quot;</span>
+<span class="linenos"> 17</span><span class="n">TARGET_API</span> <span class="o">=</span> <span class="s2">&quot;get&quot;</span>
+<span class="linenos"> 18</span>
+<span class="linenos"> 19</span><span class="c1"># Original code to migrate</span>
+<span class="linenos"> 20</span><span class="n">ORIGINAL_CODE</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="linenos"> 21</span><span class="s2">import aiohttp</span>
+<span class="linenos"> 22</span>
+<span class="linenos"> 23</span><span class="s2">async def fetch(url):</span>
+<span class="linenos"> 24</span><span class="s2">    async with aiohttp.ClientSession() as session:</span>
+<span class="linenos"> 25</span><span class="s2">        async with session.get(url) as response:</span>
+<span class="linenos"> 26</span><span class="s2">            return await response.text()</span>
+<span class="linenos"> 27</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="linenos"> 28</span>
+<span class="linenos"> 29</span><span class="c1"># Arguments of the original API</span>
+<span class="linenos"> 30</span><span class="n">ORIGINAL_ARGS</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;url&quot;</span><span class="p">,</span> <span class="s2">&quot;allow_redirects&quot;</span><span class="p">,</span> <span class="s2">&quot;kwargs&quot;</span><span class="p">]</span>
+<span class="linenos"> 31</span>
+<span class="linenos"> 32</span><span class="c1"># Path to the new library source</span>
+<span class="linenos"> 33</span><span class="n">NEW_LIB_PATH</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;path/to/httpx&quot;</span><span class="p">)</span>
+<span class="linenos"> 34</span>
+<span class="linenos"> 35</span><span class="c1"># LLM configuration</span>
+<span class="linenos"> 36</span><span class="n">MODEL</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>  <span class="c1"># e.g., &quot;gpt-4&quot;</span>
+<span class="linenos"> 37</span><span class="n">ENGINE</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>  <span class="c1"># &quot;openai&quot; or &quot;ollama&quot;</span>
+<span class="linenos"> 38</span><span class="n">TEMPERATURE</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="linenos"> 39</span>
+<span class="linenos"> 40</span>
+<span class="linenos"> 41</span><span class="c1"># ---------------------------------------------------------------------</span>
+<span class="linenos"> 42</span><span class="c1"># Step 1: Find candidate APIs</span>
+<span class="linenos"> 43</span><span class="c1"># ---------------------------------------------------------------------</span>
+<span class="linenos"> 44</span>
+<span class="linenos"> 45</span><span class="n">candidates</span> <span class="o">=</span> <span class="n">api_mapping</span><span class="p">(</span>
+<span class="linenos"> 46</span>    <span class="n">apios</span><span class="o">=</span><span class="p">[</span><span class="n">TARGET_API</span><span class="p">],</span>
+<span class="linenos"> 47</span>    <span class="n">libo</span><span class="o">=</span><span class="n">OLD_LIB</span><span class="p">,</span>
+<span class="linenos"> 48</span>    <span class="n">libn</span><span class="o">=</span><span class="n">NEW_LIB</span><span class="p">,</span>
+<span class="linenos"> 49</span>    <span class="n">libn_path</span><span class="o">=</span><span class="n">NEW_LIB_PATH</span><span class="p">,</span>
+<span class="linenos"> 50</span>    <span class="n">argso</span><span class="o">=</span><span class="n">ORIGINAL_ARGS</span><span class="p">,</span>
+<span class="linenos"> 51</span><span class="p">)</span>
+<span class="linenos"> 52</span>
+<span class="linenos"> 53</span><span class="n">apins</span> <span class="o">=</span> <span class="p">[(</span><span class="n">name</span><span class="p">,</span> <span class="n">spec</span><span class="p">)</span> <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">spec</span><span class="p">,</span> <span class="o">*</span><span class="n">_</span> <span class="ow">in</span> <span class="n">candidates</span><span class="p">]</span>
+<span class="linenos"> 54</span>
+<span class="linenos"> 55</span>
+<span class="linenos"> 56</span><span class="c1"># ---------------------------------------------------------------------</span>
+<span class="linenos"> 57</span><span class="c1"># Step 2: Ask LLM to generate a migrated snippet</span>
+<span class="linenos"> 58</span><span class="c1"># ---------------------------------------------------------------------</span>
+<span class="linenos"> 59</span>
+<span class="linenos"> 60</span><span class="n">migrated_code</span> <span class="o">=</span> <span class="n">ask_llm</span><span class="p">(</span>
+<span class="linenos"> 61</span>    <span class="n">libo</span><span class="o">=</span><span class="n">OLD_LIB</span><span class="p">,</span>
+<span class="linenos"> 62</span>    <span class="n">libn</span><span class="o">=</span><span class="n">NEW_LIB</span><span class="p">,</span>
+<span class="linenos"> 63</span>    <span class="n">apio</span><span class="o">=</span><span class="n">TARGET_API</span><span class="p">,</span>
+<span class="linenos"> 64</span>    <span class="n">apins</span><span class="o">=</span><span class="n">apins</span><span class="p">,</span>
+<span class="linenos"> 65</span>    <span class="n">codeb</span><span class="o">=</span><span class="n">ORIGINAL_CODE</span><span class="p">,</span>
+<span class="linenos"> 66</span>    <span class="n">model</span><span class="o">=</span><span class="n">MODEL</span><span class="p">,</span>
+<span class="linenos"> 67</span>    <span class="n">engine</span><span class="o">=</span><span class="n">ENGINE</span><span class="p">,</span>
+<span class="linenos"> 68</span>    <span class="n">temperature</span><span class="o">=</span><span class="n">TEMPERATURE</span><span class="p">,</span>
+<span class="linenos"> 69</span><span class="p">)</span>
+<span class="linenos"> 70</span>
+<span class="linenos"> 71</span>
+<span class="linenos"> 72</span><span class="c1"># ---------------------------------------------------------------------</span>
+<span class="linenos"> 73</span><span class="c1"># Step 3: Prepare AST information</span>
+<span class="linenos"> 74</span><span class="c1"># ---------------------------------------------------------------------</span>
+<span class="linenos"> 75</span>
+<span class="linenos"> 76</span><span class="p">(</span>
+<span class="linenos"> 77</span>    <span class="n">OldTree</span><span class="p">,</span>
+<span class="linenos"> 78</span>    <span class="n">ParentO</span><span class="p">,</span>
+<span class="linenos"> 79</span>    <span class="n">OCNs</span><span class="p">,</span>
+<span class="linenos"> 80</span>    <span class="n">UnusedVarsO</span><span class="p">,</span>
+<span class="linenos"> 81</span>    <span class="n">UnAssignedVarsO</span><span class="p">,</span>
+<span class="linenos"> 82</span>    <span class="n">FuncDefsO</span><span class="p">,</span>
+<span class="linenos"> 83</span><span class="p">)</span> <span class="o">=</span> <span class="n">preparation</span><span class="p">(</span><span class="n">ORIGINAL_CODE</span><span class="p">,</span> <span class="p">[</span><span class="n">TARGET_API</span><span class="p">],</span> <span class="n">OLD_LIB</span><span class="p">,</span> <span class="n">NEW_LIB</span><span class="p">)</span>
+<span class="linenos"> 84</span>
+<span class="linenos"> 85</span><span class="p">(</span><span class="n">NewTree</span><span class="p">,</span> <span class="n">ParentN</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">)</span> <span class="o">=</span> <span class="n">preparation</span><span class="p">(</span><span class="n">migrated_code</span><span class="p">,</span> <span class="p">[],</span> <span class="n">OLD_LIB</span><span class="p">,</span> <span class="n">NEW_LIB</span><span class="p">)</span>
+<span class="linenos"> 86</span>
+<span class="linenos"> 87</span><span class="n">OldTree1</span> <span class="o">=</span> <span class="n">ast</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">ORIGINAL_CODE</span><span class="p">)</span>
+<span class="linenos"> 88</span>
+<span class="linenos"> 89</span><span class="n">history</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="linenos"> 90</span>
+<span class="linenos"> 91</span>
+<span class="linenos"> 92</span><span class="c1"># ---------------------------------------------------------------------</span>
+<span class="linenos"> 93</span><span class="c1"># Step 4: Run migration synthesis</span>
+<span class="linenos"> 94</span><span class="c1"># ---------------------------------------------------------------------</span>
+<span class="linenos"> 95</span>
+<span class="linenos"> 96</span><span class="n">migrated_tree</span> <span class="o">=</span> <span class="n">migrator</span><span class="p">(</span>
+<span class="linenos"> 97</span>    <span class="n">TARGET_API</span><span class="p">,</span>
+<span class="linenos"> 98</span>    <span class="n">OCNs</span><span class="p">,</span>
+<span class="linenos"> 99</span>    <span class="n">ParentN</span><span class="p">,</span>
+<span class="linenos">100</span>    <span class="n">ParentO</span><span class="p">,</span>
+<span class="linenos">101</span>    <span class="n">ast</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">ORIGINAL_CODE</span><span class="p">),</span>
+<span class="linenos">102</span>    <span class="n">NewTree</span><span class="p">,</span>
+<span class="linenos">103</span>    <span class="n">OLD_LIB</span><span class="p">,</span>
+<span class="linenos">104</span>    <span class="n">NEW_LIB</span><span class="p">,</span>
+<span class="linenos">105</span>    <span class="n">history</span><span class="p">,</span>
+<span class="linenos">106</span>    <span class="n">FuncDefsO</span><span class="p">,</span>
+<span class="linenos">107</span>    <span class="kc">None</span><span class="p">,</span>
+<span class="linenos">108</span>    <span class="n">CENs</span><span class="p">,</span>
+<span class="linenos">109</span>    <span class="n">OldTree1</span><span class="p">,</span>
+<span class="linenos">110</span>    <span class="n">ORIGINAL_CODE</span><span class="p">,</span>
+<span class="linenos">111</span>    <span class="n">migrated_code</span><span class="p">,</span>
+<span class="linenos">112</span>    <span class="n">get_apis</span><span class="p">(</span><span class="s2">&quot;path&quot;</span><span class="p">,</span> <span class="n">NEW_LIB</span><span class="p">),</span>
+<span class="linenos">113</span><span class="p">)</span>
+<span class="linenos">114</span>
+<span class="linenos">115</span>
+<span class="linenos">116</span><span class="c1"># ---------------------------------------------------------------------</span>
+<span class="linenos">117</span><span class="c1"># Output result</span>
+<span class="linenos">118</span><span class="c1"># ---------------------------------------------------------------------</span>
+<span class="linenos">119</span>
+<span class="linenos">120</span><span class="nb">print</span><span class="p">(</span><span class="n">ast</span><span class="o">.</span><span class="n">unparse</span><span class="p">(</span><span class="n">migrated_tree</span><span class="p">))</span>
+</pre></div>
+</div>
+</section>
+<section id="running-the-example">
+<h2>Running the Example<a class="headerlink" href="#running-the-example" title="Link to this heading"></a></h2>
+<p>You can execute the example using the following command.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>examples/example.py
+</pre></div>
+</div>
+</section>
+<section id="expected-output">
+<h2>Expected Output<a class="headerlink" href="#expected-output" title="Link to this heading"></a></h2>
+<p>If the script runs successfully, you should see output similar to the following.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Example completed successfully.
+Result: &lt;sample output&gt;
+</pre></div>
+</div>
+</section>
+<section id="notes">
+<h2>Notes<a class="headerlink" href="#notes" title="Link to this heading"></a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Ensure that all dependencies listed in <code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code> are installed before running the example.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Running the example with a different Python version may produce slightly different results.</p>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="configuration.html" class="btn btn-neutral float-left" title="Configuration" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../commons.html" class="btn btn-neutral float-right" title="Glossary" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, moment.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Configuration &mdash; PIG 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=e1a16310" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=8d563738"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Example usages" href="example.html" />
+    <link rel="prev" title="Installation" href="installation.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            PIG
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="quickstart.html">Quickstart</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#llm-backend">LLM Backend</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#library-implementation-directory">Library Implementation Directory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#registering-library-source-paths">Registering Library Source Paths</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="example.html">Example usages</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../commons.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pig.html">API docs</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PIG</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="quickstart.html">Quickstart</a></li>
+      <li class="breadcrumb-item active">Configuration</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/quickstart/configuration.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="configuration">
+<h1>Configuration<a class="headerlink" href="#configuration" title="Link to this heading"></a></h1>
+<p>PIG requires a small amount of configuration before use, depending on which LLM backend you choose and whether you want to use the API mapping module. Below are the details on how to set up these configurations.</p>
+<section id="llm-backend">
+<h2>LLM Backend<a class="headerlink" href="#llm-backend" title="Link to this heading"></a></h2>
+<p>PIG supports two LLM backends: <strong>OpenAI</strong> and <strong>Ollama</strong>.
+You can specify the backend by passing it directly to the relevant function,
+while the corresponding credentials are read from environment variables.</p>
+<p><strong>Using OpenAI</strong></p>
+<p>Set your OpenAI API key as an environment variable:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">OPENAI_API_KEY</span><span class="o">=</span><span class="s2">&quot;your-openai-api-key&quot;</span>
+</pre></div>
+</div>
+<p><strong>Using Ollama</strong></p>
+<p>Set the Ollama host address as an environment variable:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">OLLAMA_HOST</span><span class="o">=</span><span class="s2">&quot;http://localhost:11434&quot;</span>
+</pre></div>
+</div>
+<p>Then pass the backend to the function:</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Never hard-code your API key in your source code.
+Always use environment variables to keep credentials secure.</p>
+</div>
+</section>
+<section id="library-implementation-directory">
+<h2>Library Implementation Directory<a class="headerlink" href="#library-implementation-directory" title="Link to this heading"></a></h2>
+<p>PIG includes an API mapping module that identifies candidate mappings between APIs in the source and target libraries.
+During this process, PIG references the implementation of the source and/or target library.
+Therefore, set the path to the directory containing the library implementations as an environment variable:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">PIG_LIB_DIR</span><span class="o">=</span><span class="s2">&quot;/path/to/library-repos&quot;</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The directory should contain one subdirectory per library, named exactly after the library.
+An example structure is as follows:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>library-repos/
+├── source-library/
+│   ├── __init__.py
+│   ├── module1.py
+│   └── module2.py
+└── target-library/
+    ├── __init__.py
+    ├── moduleA.py
+    └── moduleB.py
+</pre></div>
+</div>
+<p>The name of each subdirectory (e.g., <code class="docutils literal notranslate"><span class="pre">source-library</span></code>, <code class="docutils literal notranslate"><span class="pre">target-library</span></code>) must match
+the name of the library you are migrating from or to.</p>
+<p>In Python, you can retrieve this value via:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="n">lib_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;PIG_LIB_DIR&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="registering-library-source-paths">
+<h2>Registering Library Source Paths<a class="headerlink" href="#registering-library-source-paths" title="Link to this heading"></a></h2>
+<p>Some libraries have their Python source files located in a specific subdirectory within the repository.
+To let PIG know where to look, you need to register the path for each library in <code class="docutils literal notranslate"><span class="pre">src/pig/mapping/gits.py</span></code>.</p>
+<p>Add an entry to the <code class="docutils literal notranslate"><span class="pre">GIT_LOC</span></code> dictionary, where the key is the library name and the value is the relative path
+from <code class="docutils literal notranslate"><span class="pre">PIG_LIB_DIR</span></code> to the directory containing the actual Python source files:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># src/pig/mapping/gits.py</span>
+
+<span class="n">GIT_LOC</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;unipath&quot;</span><span class="p">:</span> <span class="s2">&quot;Unipath-master/unipath&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;library-name: &quot;</span><span class="n">library</span><span class="o">-</span><span class="n">repo</span><span class="o">/</span><span class="n">src</span><span class="s2">&quot;,  # add your entry here</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If a library’s Python files are located directly in the root of its subdirectory,
+you can simply use the file name as the value (e.g., <code class="docutils literal notranslate"><span class="pre">&quot;mylib&quot;:</span> <span class="pre">&quot;mylib.py&quot;</span></code>).</p>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="installation.html" class="btn btn-neutral float-left" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="example.html" class="btn btn-neutral float-right" title="Example usages" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, moment.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

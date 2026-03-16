@@ -1,0 +1,3 @@
+Model Usage
+============
+As PIG relies on large language models (LLMs) to modify code, you will need access to an LLM API or a locally hosted model. Make sure to set up your environment with the appropriate API keys or model configurations as needed.

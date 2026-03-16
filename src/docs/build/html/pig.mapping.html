@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pig.mapping &mdash; PIG 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=e1a16310" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=8d563738"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="pig.synth" href="pig.synth.html" />
+    <link rel="prev" title="pig.llm" href="pig.llm.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            PIG
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="quickstart/quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commons.html">Glossary</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="pig.html">API docs</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="pig.slicing.html">pig.slicing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pig.llm.html">pig.llm</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">pig.mapping</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#module-pig.mapping.api_lst">api_lst</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pig.mapping.api_lst.GetAllApis"><code class="docutils literal notranslate"><span class="pre">GetAllApis</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pig.mapping.api_lst.GetAllApisCython"><code class="docutils literal notranslate"><span class="pre">GetAllApisCython</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pig.mapping.api_lst.extract_apis"><code class="docutils literal notranslate"><span class="pre">extract_apis()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pig.mapping.api_lst.get_all_apis"><code class="docutils literal notranslate"><span class="pre">get_all_apis()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pig.mapping.api_lst.typeshed"><code class="docutils literal notranslate"><span class="pre">typeshed()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pig.mapping.compare_arg">compare_arg</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pig.mapping.compare_arg.api_mapping"><code class="docutils literal notranslate"><span class="pre">api_mapping()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pig.mapping.compare_arg.compute_greedy_arg_mapping"><code class="docutils literal notranslate"><span class="pre">compute_greedy_arg_mapping()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pig.mapping.compare_arg.compute_string_similarity"><code class="docutils literal notranslate"><span class="pre">compute_string_similarity()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pig.mapping.gits">gits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pig.mapping.utils">utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pig.mapping.utils.update_dict"><code class="docutils literal notranslate"><span class="pre">update_dict()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pig.synth.html">pig.synth</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">PIG</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="pig.html">API docs</a></li>
+      <li class="breadcrumb-item active">pig.mapping</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/pig.mapping.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="pig-mapping">
+<h1>pig.mapping<a class="headerlink" href="#pig-mapping" title="Link to this heading"></a></h1>
+<p>This module contains components related to mapping APIs within the PIG system. It includes functionalities for listing APIs, comparing arguments, handling git repositories, and various utilities to support API migration tasks.</p>
+<section id="module-pig.mapping.api_lst">
+<span id="api-lst"></span><h2>api_lst<a class="headerlink" href="#module-pig.mapping.api_lst" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pig.mapping.api_lst.GetAllApis">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pig.mapping.api_lst.</span></span><span class="sig-name descname"><span class="pre">GetAllApis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lib</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">py_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mapping</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">typeshed_libs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_api</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">history</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pig.mapping.api_lst.GetAllApis" title="Link to this definition"></a></dt>
+<dd><p>Extracts all APIs from a given library path.
+:param lib: The name of the library.
+:type lib: str</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>py_path</strong> (<em>Union</em><em>[</em><em>str</em><em>, </em><em>Path</em><em>]</em>) – The path to the current Python file.</p></li>
+<li><p><strong>mapping</strong> (<em>bool</em>) – A boolean parameter indicating whether to consider self imports.</p></li>
+<li><p><strong>typeshed_libs</strong> (<em>list</em>) – A list of libraries available in typeshed.</p></li>
+<li><p><strong>target_api</strong> (<em>Union</em><em>[</em><em>str</em><em>, </em><em>None</em><em>]</em>) – A tuple containing the original API name and its alias, if any. This is used when extracting specific APIs in the library.</p></li>
+<li><p><strong>history</strong> (<em>Union</em><em>[</em><em>dict</em><em>, </em><em>None</em><em>]</em>) – A dictionary to keep track of visited files to avoid circular imports. At Initial stage, it is None. It is updated during the recursive visits.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py property">
+<dt class="sig sig-object py" id="pig.mapping.api_lst.GetAllApis.classes">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">classes</span></span><a class="headerlink" href="#pig.mapping.api_lst.GetAllApis.classes" title="Link to this definition"></a></dt>
+<dd><p>Returns the list of extracted classes.
+:return: A list of tuples containing class names and their signatures.
+:rtype: list</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pig.mapping.api_lst.GetAllApis.etcs">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">etcs</span></span><a class="headerlink" href="#pig.mapping.api_lst.GetAllApis.etcs" title="Link to this definition"></a></dt>
+<dd><p>Returns the list of extracted miscellaneous items.
+:return: A list of tuples containing miscellaneous item names and their signatures.
+:rtype: list</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pig.mapping.api_lst.GetAllApis.functions">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">functions</span></span><a class="headerlink" href="#pig.mapping.api_lst.GetAllApis.functions" title="Link to this definition"></a></dt>
+<dd><p>Returns the list of extracted functions.
+:return: A list of tuples containing function names and their signatures.
+:rtype: list</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pig.mapping.api_lst.GetAllApis.get_signs">
+<span class="sig-name descname"><span class="pre">get_signs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pig.mapping.api_lst.GetAllApis.get_signs" title="Link to this definition"></a></dt>
+<dd><p>Extracts the signatures from the given AST node.
+:param node: The AST node from which to extract signatures. Can be a class or function node.
+:type node: Union[ast.ClassDef, ast.FunctionDef, ast.AsyncFunctionDef]</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A list of argument names extracted from the node.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pig.mapping.api_lst.GetAllApis.methods">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">methods</span></span><a class="headerlink" href="#pig.mapping.api_lst.GetAllApis.methods" title="Link to this definition"></a></dt>
+<dd><p>Returns the list of extracted methods.
+:return: A list of tuples containing method names and their signatures.
+:rtype: list</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pig.mapping.api_lst.GetAllApis.properties">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">properties</span></span><a class="headerlink" href="#pig.mapping.api_lst.GetAllApis.properties" title="Link to this definition"></a></dt>
+<dd><p>Returns the list of extracted properties.
+:return: A list of tuples containing property names and their signatures.
+:rtype: list</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pig.mapping.api_lst.GetAllApisCython">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pig.mapping.api_lst.</span></span><span class="sig-name descname"><span class="pre">GetAllApisCython</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target_api</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pig.mapping.api_lst.GetAllApisCython" title="Link to this definition"></a></dt>
+<dd><p>Extracts all APIs from a given library path, but in Cython files</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>target_api</strong> (<em>Union</em><em>[</em><em>str</em><em>, </em><em>None</em><em>]</em>) – A tuple containing the original API name and its alias, if any. This is used when extracting specific APIs in the library.</p>
+</dd>
+</dl>
+<dl class="py property">
+<dt class="sig sig-object py" id="pig.mapping.api_lst.GetAllApisCython.classes">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">classes</span></span><a class="headerlink" href="#pig.mapping.api_lst.GetAllApisCython.classes" title="Link to this definition"></a></dt>
+<dd><p>Returns the list of extracted classes.
+:return: A list of tuples containing class names and their signatures.
+:rtype: list</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pig.mapping.api_lst.GetAllApisCython.etcs">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">etcs</span></span><a class="headerlink" href="#pig.mapping.api_lst.GetAllApisCython.etcs" title="Link to this definition"></a></dt>
+<dd><p>Returns the list of extracted miscellaneous items.
+:return: A list of tuples containing miscellaneous item names and their signatures.
+:rtype: list</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pig.mapping.api_lst.GetAllApisCython.functions">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">functions</span></span><a class="headerlink" href="#pig.mapping.api_lst.GetAllApisCython.functions" title="Link to this definition"></a></dt>
+<dd><p>Returns the list of extracted functions.
+:return: A list of tuples containing function names and their signatures.
+:rtype: list</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pig.mapping.api_lst.GetAllApisCython.get_signs">
+<span class="sig-name descname"><span class="pre">get_signs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pig.mapping.api_lst.GetAllApisCython.get_signs" title="Link to this definition"></a></dt>
+<dd><p>Extracts the signatures from the given Cython AST node.
+:param node: The AST node from which to extract signatures. Can be a class or function node.
+:type node: Union[Nodes.ClassDefNode, Nodes.DefNode, Nodes.CFuncDefNode]
+:return: A list of argument names extracted from the node.
+:rtype: list[str]</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pig.mapping.api_lst.GetAllApisCython.methods">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">methods</span></span><a class="headerlink" href="#pig.mapping.api_lst.GetAllApisCython.methods" title="Link to this definition"></a></dt>
+<dd><p>Returns the list of extracted methods.
+:return: A list of tuples containing method names and their signatures.
+:rtype: list</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pig.mapping.api_lst.GetAllApisCython.properties">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">properties</span></span><a class="headerlink" href="#pig.mapping.api_lst.GetAllApisCython.properties" title="Link to this definition"></a></dt>
+<dd><p>Returns the list of extracted properties.
+:return: A list of tuples containing property names and their signatures.
+:rtype: list</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pig.mapping.api_lst.extract_apis">
+<span class="sig-prename descclassname"><span class="pre">pig.mapping.api_lst.</span></span><span class="sig-name descname"><span class="pre">extract_apis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lib</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lib_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">typeshed_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pig.mapping.api_lst.extract_apis" title="Link to this definition"></a></dt>
+<dd><p>Extracts API signatures from the specified library path.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>libn</strong> (<em>str</em>) – A name of the library.</p></li>
+<li><p><strong>libn_path</strong> (<em>Union</em><em>[</em><em>str</em><em>, </em><em>Path</em><em>]</em>) – A path to the library.</p></li>
+<li><p><strong>typeshed_path</strong> (<em>Union</em><em>[</em><em>str</em><em>, </em><em>Path</em><em>]</em>) – The path to the typeshed directory.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A dictionary mapping file paths to tuples containing sets of API signatures. Each tuple contains sets for classes, properties, functions, methods, and other entities.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pig.mapping.api_lst.get_all_apis">
+<span class="sig-prename descclassname"><span class="pre">pig.mapping.api_lst.</span></span><span class="sig-name descname"><span class="pre">get_all_apis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lib_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">imp_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lib</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">typeshed_libs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">py</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mapping</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pig.mapping.api_lst.get_all_apis" title="Link to this definition"></a></dt>
+<dd><p>Extracts all APIs from the specified library path.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lib_path</strong> (<em>Union</em><em>[</em><em>str</em><em>, </em><em>Path</em><em>]</em>) – The path to the library from which to extract APIs.</p></li>
+<li><p><strong>imp_path</strong> (<em>str</em>) – The import path corresponding to the library.</p></li>
+<li><p><strong>lib</strong> (<em>str</em>) – The name of the library.</p></li>
+<li><p><strong>typeshed_libs</strong> (<em>list</em>) – A list of libraries available in typeshed.</p></li>
+<li><p><strong>py</strong> (<em>bool</em>) – A boolean parameter indicating whether current file is directory or module. Defaults to False.</p></li>
+<li><p><strong>mapping</strong> (<em>bool</em>) – A boolean parameter indicating whether to consider self imports. Defaults to False.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A dictionary containing the extracted APIs categorized by their import paths. Detailed type can be found in the extract_apis function.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pig.mapping.api_lst.typeshed">
+<span class="sig-prename descclassname"><span class="pre">pig.mapping.api_lst.</span></span><span class="sig-name descname"><span class="pre">typeshed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lib</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pig.mapping.api_lst.typeshed" title="Link to this definition"></a></dt>
+<dd><p>Extracts all APIs from the typeshed library.
+:param lib: The name of the library.
+:type lib: str
+:return: A dictionary containing the extracted APIs categorized by their import paths. Detailed type can be found in the extract_apis function.
+:rtype: dict</p>
+</dd></dl>
+
+</section>
+<section id="module-pig.mapping.compare_arg">
+<span id="compare-arg"></span><h2>compare_arg<a class="headerlink" href="#module-pig.mapping.compare_arg" title="Link to this heading"></a></h2>
+<p>Functions to map similar APIs based on signature information.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="pig.mapping.compare_arg.api_mapping">
+<span class="sig-prename descclassname"><span class="pre">pig.mapping.compare_arg.</span></span><span class="sig-name descname"><span class="pre">api_mapping</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">apios</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">libo</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">libn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">libn_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">argso</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pig.mapping.compare_arg.api_mapping" title="Link to this definition"></a></dt>
+<dd><p>Maps APIs from the original library to candidate APIs in the new library based on name and argument similarity.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>apios</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – A list of original API names.</p></li>
+<li><p><strong>libo</strong> (<em>str</em>) – A name of the original library.</p></li>
+<li><p><strong>libn</strong> (<em>str</em>) – A name of the new library.</p></li>
+<li><p><strong>libn_path</strong> (<em>Union</em><em>[</em><em>str</em><em>, </em><em>Path</em><em>]</em>) – A path to the new library.</p></li>
+<li><p><strong>argso</strong> (<em>list</em>) – A list of arguments from the original API.</p></li>
+<li><p><strong>top</strong> (<em>int</em><em>, </em><em>optional</em>) – An integer specifying the number of top candidates to return. Defaults to -1 (all candidates).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A dictionary mapping original APIs to candidate APIs with similarity scores. A key is an original API name, and a value is a set of tuples containing candidate API name, signature, name similarity score, argument similarity score, and file path.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict[str : set[tuple[str, tuple, float, float, str]]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pig.mapping.compare_arg.compute_greedy_arg_mapping">
+<span class="sig-prename descclassname"><span class="pre">pig.mapping.compare_arg.</span></span><span class="sig-name descname"><span class="pre">compute_greedy_arg_mapping</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">argso</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">argsn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">libo</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">libn</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pig.mapping.compare_arg.compute_greedy_arg_mapping" title="Link to this definition"></a></dt>
+<dd><p>Computes an argument similarity score between two sets of arguments using a greedy matching algorithm.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>argso</strong> (<em>set</em>) – A set of arguments from the original API.</p></li>
+<li><p><strong>argsn</strong> (<em>set</em>) – A set of arguments from the new API.</p></li>
+<li><p><strong>libo</strong> (<em>str</em>) – A name of the original library.</p></li>
+<li><p><strong>libn</strong> (<em>str</em>) – A name of the new library.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A normalized similarity score between the two argument sets.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pig.mapping.compare_arg.compute_string_similarity">
+<span class="sig-prename descclassname"><span class="pre">pig.mapping.compare_arg.</span></span><span class="sig-name descname"><span class="pre">compute_string_similarity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">word0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">word1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">libo</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">libn</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pig.mapping.compare_arg.compute_string_similarity" title="Link to this definition"></a></dt>
+<dd><p>Computes a similarity score between two strings, considering special case.</p>
+<p>“:param word1: The first string to compare.
+:type word1: str
+:param word2: The second string to compare.
+:type word2: str
+:param libo: A name of the original library.
+:type libo: str
+:param libn: A name of the new library.
+:type libn: str</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A similarity score between the two strings.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-pig.mapping.gits">
+<span id="gits"></span><h2>gits<a class="headerlink" href="#module-pig.mapping.gits" title="Link to this heading"></a></h2>
+</section>
+<section id="module-pig.mapping.utils">
+<span id="utils"></span><h2>utils<a class="headerlink" href="#module-pig.mapping.utils" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="pig.mapping.utils.update_dict">
+<span class="sig-prename descclassname"><span class="pre">pig.mapping.utils.</span></span><span class="sig-name descname"><span class="pre">update_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dict1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dict2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pig.mapping.utils.update_dict" title="Link to this definition"></a></dt>
+<dd><p>Updates original dictionary with values from another dictionary by summing corresponding tuple elements.
+:param dict1: The original dictionary to be updated.
+:type dict1: dict</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dict2</strong> (<em>dict</em>) – The dictionary with values to add to the original dictionary.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The updated original dictionary with summed tuple values.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="pig.llm.html" class="btn btn-neutral float-left" title="pig.llm" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="pig.synth.html" class="btn btn-neutral float-right" title="pig.synth" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, moment.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

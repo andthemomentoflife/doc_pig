@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pig.llm &mdash; PIG 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=e1a16310" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=8d563738"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="pig.mapping" href="pig.mapping.html" />
+    <link rel="prev" title="pig.slicing" href="pig.slicing.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            PIG
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="quickstart/quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commons.html">Glossary</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="pig.html">API docs</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="pig.slicing.html">pig.slicing</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">pig.llm</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#module-pig.llm.prompts">prompts</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pig.llm.prompts.generate_prompt"><code class="docutils literal notranslate"><span class="pre">generate_prompt()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pig.llm.prompts.generate_query"><code class="docutils literal notranslate"><span class="pre">generate_query()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pig.llm.query">query</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pig.llm.query.ask_llm"><code class="docutils literal notranslate"><span class="pre">ask_llm()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pig.llm.utils">utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pig.llm.utils.extract_code"><code class="docutils literal notranslate"><span class="pre">extract_code()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pig.llm.utils.fill_placeholders"><code class="docutils literal notranslate"><span class="pre">fill_placeholders()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pig.llm.utils.find_code_blocks"><code class="docutils literal notranslate"><span class="pre">find_code_blocks()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pig.llm.utils.is_valid_python_code"><code class="docutils literal notranslate"><span class="pre">is_valid_python_code()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pig.llm.utils.show_llm_response"><code class="docutils literal notranslate"><span class="pre">show_llm_response()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pig.llm.utils.show_prompt_and_query"><code class="docutils literal notranslate"><span class="pre">show_prompt_and_query()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pig.mapping.html">pig.mapping</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pig.synth.html">pig.synth</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">PIG</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="pig.html">API docs</a></li>
+      <li class="breadcrumb-item active">pig.llm</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/pig.llm.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="pig-llm">
+<h1>pig.llm<a class="headerlink" href="#pig-llm" title="Link to this heading"></a></h1>
+<p>This module contains components related to large language model (LLM) interactions within the PIG system. It includes functionalities for constructing prompts, querying LLMs, and processing their responses to facilitate API migration tasks.</p>
+<section id="module-pig.llm.prompts">
+<span id="prompts"></span><h2>prompts<a class="headerlink" href="#module-pig.llm.prompts" title="Link to this heading"></a></h2>
+<p>Prompts for LLM queries in the PIG model.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="pig.llm.prompts.generate_prompt">
+<span class="sig-prename descclassname"><span class="pre">pig.llm.prompts.</span></span><span class="sig-name descname"><span class="pre">generate_prompt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">libo</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">libn</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pig.llm.prompts.generate_prompt" title="Link to this definition"></a></dt>
+<dd><p>Generates a prompt for migrating code between libraries.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>libo</strong> (<em>str</em>) – A name of the original library.</p></li>
+<li><p><strong>libn</strong> (<em>str</em>) – A name of the new library.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The generated prompt.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pig.llm.prompts.generate_query">
+<span class="sig-prename descclassname"><span class="pre">pig.llm.prompts.</span></span><span class="sig-name descname"><span class="pre">generate_query</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">libo</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">libn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">apio</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cand_apis</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">codeb</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pig.llm.prompts.generate_query" title="Link to this definition"></a></dt>
+<dd><p>Generates a query for migrating code between libraries.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>libo</strong> (<em>str</em>) – A name of the original library.</p></li>
+<li><p><strong>libn</strong> (<em>str</em>) – A name of the new library.</p></li>
+<li><p><strong>apio</strong> (<em>str</em>) – A name of the original API to be replaced.</p></li>
+<li><p><strong>cand_apis</strong> (<em>str</em>) – A formatted string of candidate APIs.</p></li>
+<li><p><strong>codeb</strong> (<em>str</em>) – The code snippet to be migrated.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The generated query.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-pig.llm.query">
+<span id="query"></span><h2>query<a class="headerlink" href="#module-pig.llm.query" title="Link to this heading"></a></h2>
+<p>Module for querying the LLM with specific prompts and parameters.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="pig.llm.query.ask_llm">
+<span class="sig-prename descclassname"><span class="pre">pig.llm.query.</span></span><span class="sig-name descname"><span class="pre">ask_llm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">libo</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">libn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">apio</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">apins</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">codeb</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">engine</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">temperature</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pig.llm.query.ask_llm" title="Link to this definition"></a></dt>
+<dd><p>Queries the LLM with the constructed prompt and returns the response.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>libo</strong> (<em>str</em>) – A name of the original library.</p></li>
+<li><p><strong>libn</strong> (<em>str</em>) – A name of the new library.</p></li>
+<li><p><strong>apio</strong> (<em>str</em>) – A name of the original API to be replaced.</p></li>
+<li><p><strong>apins</strong> (<em>list</em><em>[</em><em>tuple</em><em>[</em><em>str</em><em>, </em><em>str</em><em>]</em><em>]</em>) – A list of candidate APIs for replacement.</p></li>
+<li><p><strong>codeb</strong> (<em>str</em>) – The code snippet to be migrated.</p></li>
+<li><p><strong>model</strong> (<em>str</em>) – A name of the LLM model to use.</p></li>
+<li><p><strong>engine</strong> (<em>str</em>) – An engine to use (‘openai’ or ‘ollama’).</p></li>
+<li><p><strong>temperature</strong> (<em>Union</em><em>[</em><em>float</em><em>, </em><em>int</em><em>]</em><em>, </em><em>optional</em>) – A value that controls the randomness of the output. Defaults to 1.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If an unsupported engine is specified.</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The generated query.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-pig.llm.utils">
+<span id="utils"></span><h2>utils<a class="headerlink" href="#module-pig.llm.utils" title="Link to this heading"></a></h2>
+<p>LLM-related utility functions.
+This includes functions for extracting relevant information from LLM responses.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="pig.llm.utils.extract_code">
+<span class="sig-prename descclassname"><span class="pre">pig.llm.utils.</span></span><span class="sig-name descname"><span class="pre">extract_code</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">llm_answer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">libo</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">libn</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pig.llm.utils.extract_code" title="Link to this definition"></a></dt>
+<dd><p>Extracts the migrated code from the LLM answer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>llm_answer</strong> (<em>str</em>) – A response from the LLM.</p></li>
+<li><p><strong>libo</strong> (<em>str</em>) – A name of the original library.</p></li>
+<li><p><strong>libn</strong> (<em>str</em>) – A name of the new library.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If the extracted code is invalid or if multiple code blocks are found.</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The extracted code.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pig.llm.utils.fill_placeholders">
+<span class="sig-prename descclassname"><span class="pre">pig.llm.utils.</span></span><span class="sig-name descname"><span class="pre">fill_placeholders</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">block</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pig.llm.utils.fill_placeholders" title="Link to this definition"></a></dt>
+<dd><p>Fills placeholders in the code block with dummy values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>block</strong> (<em>str</em>) – The code block containing placeholders.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The code block with placeholders filled.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pig.llm.utils.find_code_blocks">
+<span class="sig-prename descclassname"><span class="pre">pig.llm.utils.</span></span><span class="sig-name descname"><span class="pre">find_code_blocks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">answer</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pig.llm.utils.find_code_blocks" title="Link to this definition"></a></dt>
+<dd><p>Finds all the code blocks from the LLM answer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>answer</strong> (<em>str</em>) – A response from the LLM.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of code blocks extracted from the answer.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pig.llm.utils.is_valid_python_code">
+<span class="sig-prename descclassname"><span class="pre">pig.llm.utils.</span></span><span class="sig-name descname"><span class="pre">is_valid_python_code</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">code</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pig.llm.utils.is_valid_python_code" title="Link to this definition"></a></dt>
+<dd><p>Checks if the provided code is valid Python code.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>code</strong> (<em>str</em>) – The code snippet to be checked.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if the code is valid Python code, False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pig.llm.utils.show_llm_response">
+<span class="sig-prename descclassname"><span class="pre">pig.llm.utils.</span></span><span class="sig-name descname"><span class="pre">show_llm_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">response</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pig.llm.utils.show_llm_response" title="Link to this definition"></a></dt>
+<dd><p>Displays the LLM response for debugging purposes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>response</strong> (<em>str</em>) – A response from the LLM.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pig.llm.utils.show_prompt_and_query">
+<span class="sig-prename descclassname"><span class="pre">pig.llm.utils.</span></span><span class="sig-name descname"><span class="pre">show_prompt_and_query</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prompt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pig.llm.utils.show_prompt_and_query" title="Link to this definition"></a></dt>
+<dd><p>Displays the prompt and query sent to the LLM for debugging purposes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>prompt</strong> (<em>str</em>) – A prompt for the LLM.</p></li>
+<li><p><strong>query</strong> (<em>str</em>) – A query for the LLM.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="pig.slicing.html" class="btn btn-neutral float-left" title="pig.slicing" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="pig.mapping.html" class="btn btn-neutral float-right" title="pig.mapping" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, moment.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

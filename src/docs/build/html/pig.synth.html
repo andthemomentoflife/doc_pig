@@ -1,0 +1,1492 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pig.synth &mdash; PIG 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=e1a16310" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=8d563738"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="pig.mapping" href="pig.mapping.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            PIG
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="quickstart/quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commons.html">Glossary</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="pig.html">API docs</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="pig.slicing.html">pig.slicing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pig.llm.html">pig.llm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pig.mapping.html">pig.mapping</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">pig.synth</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#module-pig.synth.call">call</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pig.synth.call.FindCParent"><code class="docutils literal notranslate"><span class="pre">FindCParent()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pig.synth.call.FindExprParent"><code class="docutils literal notranslate"><span class="pre">FindExprParent()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pig.synth.call.FindFCParent"><code class="docutils literal notranslate"><span class="pre">FindFCParent()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pig.synth.call.FindFParent"><code class="docutils literal notranslate"><span class="pre">FindFParent()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pig.synth.call.FindParent"><code class="docutils literal notranslate"><span class="pre">FindParent()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pig.synth.call.FindRealParent"><code class="docutils literal notranslate"><span class="pre">FindRealParent()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pig.synth.call.FindSSParent"><code class="docutils literal notranslate"><span class="pre">FindSSParent()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pig.synth.call.FunctionDefs"><code class="docutils literal notranslate"><span class="pre">FunctionDefs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pig.synth.call.NameExtractor"><code class="docutils literal notranslate"><span class="pre">NameExtractor</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pig.synth.call.ParentAst"><code class="docutils literal notranslate"><span class="pre">ParentAst()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pig.synth.call.Preparation"><code class="docutils literal notranslate"><span class="pre">Preparation</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pig.synth.fix_import">fix_import</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pig.synth.fix_import.ImportFindPath"><code class="docutils literal notranslate"><span class="pre">ImportFindPath()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pig.synth.fix_import.Importfind"><code class="docutils literal notranslate"><span class="pre">Importfind()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pig.synth.fix_import.check_available_import"><code class="docutils literal notranslate"><span class="pre">check_available_import()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pig.synth.fix_import.duplicate_imports_resolve"><code class="docutils literal notranslate"><span class="pre">duplicate_imports_resolve()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pig.synth.fix_import.extract_api_related_names"><code class="docutils literal notranslate"><span class="pre">extract_api_related_names</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pig.synth.fix_import.get_accessible_apis"><code class="docutils literal notranslate"><span class="pre">get_accessible_apis()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pig.synth.fix_import.is_total_import"><code class="docutils literal notranslate"><span class="pre">is_total_import()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pig.synth.llm_pre">llm_pre</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pig.synth.llm_pre.DefUseGraph"><code class="docutils literal notranslate"><span class="pre">DefUseGraph</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pig.synth.llm_pre.DupImpSolver"><code class="docutils literal notranslate"><span class="pre">DupImpSolver()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pig.synth.llm_pre.ExtractArgs"><code class="docutils literal notranslate"><span class="pre">ExtractArgs</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pig.synth.llm_pre.ExtractVarMap"><code class="docutils literal notranslate"><span class="pre">ExtractVarMap</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pig.synth.llm_pre.FindLastExpr"><code class="docutils literal notranslate"><span class="pre">FindLastExpr()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pig.synth.llm_pre.ModUseVars"><code class="docutils literal notranslate"><span class="pre">ModUseVars</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pig.synth.llm_pre.check_two_sim"><code class="docutils literal notranslate"><span class="pre">check_two_sim()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pig.synth.llm_pre.extract_var_map"><code class="docutils literal notranslate"><span class="pre">extract_var_map()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pig.synth.llm_pre.is_async"><code class="docutils literal notranslate"><span class="pre">is_async()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pig.synth.llm_pre.libname"><code class="docutils literal notranslate"><span class="pre">libname()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pig.synth.llm_pre.scope_name"><code class="docutils literal notranslate"><span class="pre">scope_name()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pig.synth.matching">matching</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pig.synth.matching.filter_stmt"><code class="docutils literal notranslate"><span class="pre">filter_stmt()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pig.synth.matching.matcher"><code class="docutils literal notranslate"><span class="pre">matcher()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pig.synth.matching.single_matcher"><code class="docutils literal notranslate"><span class="pre">single_matcher()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pig.synth.matching.total_mappings"><code class="docutils literal notranslate"><span class="pre">total_mappings()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pig.synth.sketch">sketch</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pig.synth.sketch.PreRequired"><code class="docutils literal notranslate"><span class="pre">PreRequired()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pig.synth.sketch.migrator"><code class="docutils literal notranslate"><span class="pre">migrator()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pig.synth.synthesis">synthesis</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pig.synth.synthesis.AsyncFD"><code class="docutils literal notranslate"><span class="pre">AsyncFD</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pig.synth.synthesis.FindSurFCs"><code class="docutils literal notranslate"><span class="pre">FindSurFCs</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pig.synth.synthesis.ImportDeleter"><code class="docutils literal notranslate"><span class="pre">ImportDeleter</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pig.synth.synthesis.NameBool"><code class="docutils literal notranslate"><span class="pre">NameBool</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pig.synth.synthesis.SynthDel"><code class="docutils literal notranslate"><span class="pre">SynthDel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pig.synth.synthesis.SynthImport"><code class="docutils literal notranslate"><span class="pre">SynthImport</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pig.synth.synthesis.SynthSame"><code class="docutils literal notranslate"><span class="pre">SynthSame</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pig.synth.synthesis.TrimRoot"><code class="docutils literal notranslate"><span class="pre">TrimRoot</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pig.synth.synthesis.UnusedVars"><code class="docutils literal notranslate"><span class="pre">UnusedVars</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pig.synth.synthesis.VarExtractor"><code class="docutils literal notranslate"><span class="pre">VarExtractor</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pig.synth.synthesis.stmt_to_dec"><code class="docutils literal notranslate"><span class="pre">stmt_to_dec()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">PIG</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="pig.html">API docs</a></li>
+      <li class="breadcrumb-item active">pig.synth</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/pig.synth.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="pig-synth">
+<h1>pig.synth<a class="headerlink" href="#pig-synth" title="Link to this heading"></a></h1>
+<p>This module contains components related to synthesis APIs within the PIG system. It includes functionalities for synthesizing code, handling synthesis tasks, and various utilities to support API migration tasks.</p>
+<section id="module-pig.synth.call">
+<span id="call"></span><h2>call<a class="headerlink" href="#module-pig.synth.call" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="pig.synth.call.FindCParent">
+<span class="sig-prename descclassname"><span class="pre">pig.synth.call.</span></span><span class="sig-name descname"><span class="pre">FindCParent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pig.synth.call.FindCParent" title="Link to this definition"></a></dt>
+<dd><p>Find the nearest enclosing class of <code class="docutils literal notranslate"><span class="pre">node</span></code>, if any.</p>
+<p>Traverses the parent mapping upward until an <code class="xref py py-class docutils literal notranslate"><span class="pre">ast.ClassDef</span></code> is
+found. Returns <code class="docutils literal notranslate"><span class="pre">None</span></code> if the traversal reaches an <code class="xref py py-class docutils literal notranslate"><span class="pre">ast.Module</span></code>
+without encountering a class.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>parent</strong> (<em>dict</em>) – The parent mapping as produced by <a class="reference internal" href="#pig.synth.call.ParentAst" title="pig.synth.call.ParentAst"><code class="xref py py-func docutils literal notranslate"><span class="pre">ParentAst()</span></code></a>,
+mapping each node to the set of its direct children.</p></li>
+<li><p><strong>node</strong> – The AST node whose enclosing class is to be found.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The nearest enclosing <code class="xref py py-class docutils literal notranslate"><span class="pre">ast.ClassDef</span></code>, or <code class="docutils literal notranslate"><span class="pre">None</span></code> if
+<code class="docutils literal notranslate"><span class="pre">node</span></code> is not nested inside any class.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ast.ClassDef | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pig.synth.call.FindExprParent">
+<span class="sig-prename descclassname"><span class="pre">pig.synth.call.</span></span><span class="sig-name descname"><span class="pre">FindExprParent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pig.synth.call.FindExprParent" title="Link to this definition"></a></dt>
+<dd><p>Find the nearest <code class="xref py py-class docutils literal notranslate"><span class="pre">ast.Attribute</span></code> or <code class="xref py py-class docutils literal notranslate"><span class="pre">ast.Call</span></code> ancestor of <code class="docutils literal notranslate"><span class="pre">node</span></code>.</p>
+<p>Traverses the parent mapping upward until an <code class="xref py py-class docutils literal notranslate"><span class="pre">ast.Attribute</span></code> or
+<code class="xref py py-class docutils literal notranslate"><span class="pre">ast.Call</span></code> node is encountered. This is useful for resolving the
+outermost expression context of a name reference within a call chain.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>parent</strong> (<em>dict</em>) – The parent mapping as produced by <a class="reference internal" href="#pig.synth.call.ParentAst" title="pig.synth.call.ParentAst"><code class="xref py py-func docutils literal notranslate"><span class="pre">ParentAst()</span></code></a>,
+mapping each node to the set of its direct children.</p></li>
+<li><p><strong>node</strong> – The AST node whose nearest attribute or call ancestor
+is to be found.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The nearest enclosing <code class="xref py py-class docutils literal notranslate"><span class="pre">ast.Attribute</span></code> or <code class="xref py py-class docutils literal notranslate"><span class="pre">ast.Call</span></code>
+node, or <code class="docutils literal notranslate"><span class="pre">node</span></code> itself if no such ancestor exists.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ast.Attribute | ast.Call | ast.AST</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pig.synth.call.FindFCParent">
+<span class="sig-prename descclassname"><span class="pre">pig.synth.call.</span></span><span class="sig-name descname"><span class="pre">FindFCParent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">depth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pig.synth.call.FindFCParent" title="Link to this definition"></a></dt>
+<dd><p>Find the nearest function-or-class-container ancestor of <code class="docutils literal notranslate"><span class="pre">node</span></code>.</p>
+<p>Traverses the parent mapping upward, skipping nodes that are not
+function or class containers (i.e. not in <code class="docutils literal notranslate"><span class="pre">llm_pre.stmtInFuncClass</span></code>),
+until a qualifying ancestor is found. Unlike <a class="reference internal" href="#pig.synth.call.FindSSParent" title="pig.synth.call.FindSSParent"><code class="xref py py-func docutils literal notranslate"><span class="pre">FindSSParent()</span></code></a>, this
+function considers only <code class="xref py py-class docutils literal notranslate"><span class="pre">ast.FunctionDef</span></code>,
+<code class="xref py py-class docutils literal notranslate"><span class="pre">ast.AsyncFunctionDef</span></code>, and <code class="xref py py-class docutils literal notranslate"><span class="pre">ast.ClassDef</span></code> as valid
+container types.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>parent</strong> (<em>dict</em>) – The parent mapping as produced by <a class="reference internal" href="#pig.synth.call.ParentAst" title="pig.synth.call.ParentAst"><code class="xref py py-func docutils literal notranslate"><span class="pre">ParentAst()</span></code></a>,
+mapping each node to the set of its direct children.</p></li>
+<li><p><strong>node</strong> – The AST node whose function-or-class ancestor is to be found.
+Returns <code class="docutils literal notranslate"><span class="pre">None</span></code> immediately if <code class="docutils literal notranslate"><span class="pre">node</span></code> is an <code class="xref py py-class docutils literal notranslate"><span class="pre">ast.Module</span></code>.</p></li>
+<li><p><strong>depth</strong> (<em>int</em>) – The number of function-or-class container hops to traverse.
+<code class="docutils literal notranslate"><span class="pre">depth=1</span></code> returns the immediate enclosing function or class.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The function-or-class container ancestor at the requested depth,
+or <code class="docutils literal notranslate"><span class="pre">None</span></code> if <code class="docutils literal notranslate"><span class="pre">node</span></code> is a module or no such ancestor exists.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ast.FunctionDef | ast.AsyncFunctionDef | ast.ClassDef | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pig.synth.call.FindFParent">
+<span class="sig-prename descclassname"><span class="pre">pig.synth.call.</span></span><span class="sig-name descname"><span class="pre">FindFParent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">depth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pig.synth.call.FindFParent" title="Link to this definition"></a></dt>
+<dd><p>Find the nearest enclosing function of <code class="docutils literal notranslate"><span class="pre">node</span></code> at the given depth.</p>
+<p>Traverses the parent mapping upward, skipping nodes that are not
+<code class="xref py py-class docutils literal notranslate"><span class="pre">ast.FunctionDef</span></code> or <code class="xref py py-class docutils literal notranslate"><span class="pre">ast.AsyncFunctionDef</span></code>, until a
+function ancestor is found. Unlike <a class="reference internal" href="#pig.synth.call.FindFCParent" title="pig.synth.call.FindFCParent"><code class="xref py py-func docutils literal notranslate"><span class="pre">FindFCParent()</span></code></a>, class definitions
+are not considered valid container boundaries.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>parent</strong> (<em>dict</em>) – The parent mapping as produced by <a class="reference internal" href="#pig.synth.call.ParentAst" title="pig.synth.call.ParentAst"><code class="xref py py-func docutils literal notranslate"><span class="pre">ParentAst()</span></code></a>,
+mapping each node to the set of its direct children.</p></li>
+<li><p><strong>node</strong> – The AST node whose enclosing function is to be found.
+Returns <code class="docutils literal notranslate"><span class="pre">None</span></code> immediately if <code class="docutils literal notranslate"><span class="pre">node</span></code> is an <code class="xref py py-class docutils literal notranslate"><span class="pre">ast.Module</span></code>.</p></li>
+<li><p><strong>depth</strong> (<em>int</em>) – The number of function-level hops to traverse.
+<code class="docutils literal notranslate"><span class="pre">depth=1</span></code> returns the immediate enclosing function.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The enclosing <code class="xref py py-class docutils literal notranslate"><span class="pre">ast.FunctionDef</span></code> or
+<code class="xref py py-class docutils literal notranslate"><span class="pre">ast.AsyncFunctionDef</span></code> at the requested depth, or <code class="docutils literal notranslate"><span class="pre">None</span></code>
+if <code class="docutils literal notranslate"><span class="pre">node</span></code> is a module or no enclosing function exists.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ast.FunctionDef | ast.AsyncFunctionDef | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pig.synth.call.FindParent">
+<span class="sig-prename descclassname"><span class="pre">pig.synth.call.</span></span><span class="sig-name descname"><span class="pre">FindParent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pig.synth.call.FindParent" title="Link to this definition"></a></dt>
+<dd><p>Find the direct parent of <code class="docutils literal notranslate"><span class="pre">node</span></code> regardless of its type.</p>
+<p>Searches the parent mapping for the key whose child set contains <code class="docutils literal notranslate"><span class="pre">node</span></code>.
+Unlike <a class="reference internal" href="#pig.synth.call.FindRealParent" title="pig.synth.call.FindRealParent"><code class="xref py py-func docutils literal notranslate"><span class="pre">FindRealParent()</span></code></a>, this function makes no distinction between
+expression-type and statement-type nodes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>parent</strong> (<em>dict</em>) – The parent mapping as produced by <a class="reference internal" href="#pig.synth.call.ParentAst" title="pig.synth.call.ParentAst"><code class="xref py py-func docutils literal notranslate"><span class="pre">ParentAst()</span></code></a>,
+mapping each node to the set of its direct children.</p></li>
+<li><p><strong>node</strong> – The AST node whose parent is to be found.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The direct parent node, or <code class="docutils literal notranslate"><span class="pre">node</span></code> itself if no parent is found.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ast.AST</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pig.synth.call.FindRealParent">
+<span class="sig-prename descclassname"><span class="pre">pig.synth.call.</span></span><span class="sig-name descname"><span class="pre">FindRealParent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">depth</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pig.synth.call.FindRealParent" title="Link to this definition"></a></dt>
+<dd><p>Find the nearest statement-type ancestor of <code class="docutils literal notranslate"><span class="pre">node</span></code> at the given depth.</p>
+<p>Traverses the parent mapping upward, skipping expression-type intermediate
+nodes, until a statement-type (<code class="docutils literal notranslate"><span class="pre">stmt_type</span></code>) ancestor is found. The
+<code class="docutils literal notranslate"><span class="pre">depth</span></code> parameter controls how many statement-level hops to take.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>parent</strong> (<em>dict</em>) – The parent mapping as produced by <a class="reference internal" href="#pig.synth.call.ParentAst" title="pig.synth.call.ParentAst"><code class="xref py py-func docutils literal notranslate"><span class="pre">ParentAst()</span></code></a>,
+mapping each node to the set of its direct children.</p></li>
+<li><p><strong>node</strong> – The AST node whose statement ancestor is to be found.</p></li>
+<li><p><strong>depth</strong> (<em>int</em>) – The number of statement-level ancestors to traverse.
+<code class="docutils literal notranslate"><span class="pre">depth=1</span></code> returns the immediate statement ancestor of <code class="docutils literal notranslate"><span class="pre">node</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The statement-type ancestor at the requested depth, the
+<code class="xref py py-class docutils literal notranslate"><span class="pre">ast.Module</span></code> if the root is reached, or <code class="docutils literal notranslate"><span class="pre">None</span></code> if no
+statement ancestor exists.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ast.AST | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pig.synth.call.FindSSParent">
+<span class="sig-prename descclassname"><span class="pre">pig.synth.call.</span></span><span class="sig-name descname"><span class="pre">FindSSParent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">depth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pig.synth.call.FindSSParent" title="Link to this definition"></a></dt>
+<dd><p>Find the nearest statement-container ancestor of <code class="docutils literal notranslate"><span class="pre">node</span></code> at the given depth.</p>
+<p>Traverses the parent mapping upward, skipping nodes that are not
+statement-containers (i.e. not in <code class="docutils literal notranslate"><span class="pre">llm_pre.stmtInstmt</span></code>), until a
+container-type ancestor is found. Unlike <a class="reference internal" href="#pig.synth.call.FindRealParent" title="pig.synth.call.FindRealParent"><code class="xref py py-func docutils literal notranslate"><span class="pre">FindRealParent()</span></code></a>, this
+function considers only nodes that can themselves contain statements
+(e.g. <code class="xref py py-class docutils literal notranslate"><span class="pre">ast.FunctionDef</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">ast.If</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">ast.For</span></code>).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>parent</strong> (<em>dict</em>) – The parent mapping as produced by <a class="reference internal" href="#pig.synth.call.ParentAst" title="pig.synth.call.ParentAst"><code class="xref py py-func docutils literal notranslate"><span class="pre">ParentAst()</span></code></a>,
+mapping each node to the set of its direct children.</p></li>
+<li><p><strong>node</strong> – The AST node whose statement-container ancestor is to be found.</p></li>
+<li><p><strong>depth</strong> (<em>int</em>) – The number of statement-container hops to traverse.
+<code class="docutils literal notranslate"><span class="pre">depth=1</span></code> returns the immediate container ancestor of <code class="docutils literal notranslate"><span class="pre">node</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The statement-container ancestor at the requested depth,
+or <code class="docutils literal notranslate"><span class="pre">None</span></code> if no such ancestor exists.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ast.AST | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pig.synth.call.FunctionDefs">
+<span class="sig-prename descclassname"><span class="pre">pig.synth.call.</span></span><span class="sig-name descname"><span class="pre">FunctionDefs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ParentO</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pig.synth.call.FunctionDefs" title="Link to this definition"></a></dt>
+<dd><p>Collect all user-defined functions and async functions in the AST.</p>
+<p>Walks the entire AST and maps each function’s name to its defining node.
+If a function is defined inside a class, it is also registered under the
+<code class="docutils literal notranslate"><span class="pre">'self.&lt;name&gt;'</span></code> key to allow resolution of method calls on <code class="docutils literal notranslate"><span class="pre">self</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>root</strong> (<em>ast.AST</em>) – The root AST node to walk.</p></li>
+<li><p><strong>ParentO</strong> – The parent-resolver object used to locate the enclosing
+class via <a class="reference internal" href="#pig.synth.call.FindCParent" title="pig.synth.call.FindCParent"><code class="xref py py-func docutils literal notranslate"><span class="pre">FindCParent()</span></code></a>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A mapping from function name (and <code class="docutils literal notranslate"><span class="pre">'self.&lt;name&gt;'</span></code> for methods)
+to the corresponding <code class="xref py py-class docutils literal notranslate"><span class="pre">ast.FunctionDef</span></code> or
+<code class="xref py py-class docutils literal notranslate"><span class="pre">ast.AsyncFunctionDef</span></code> node.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dict[str, ast.FunctionDef | ast.AsyncFunctionDef]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pig.synth.call.NameExtractor">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pig.synth.call.</span></span><span class="sig-name descname"><span class="pre">NameExtractor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">check</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">check1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">libo</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'qwer'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pig.synth.call.NameExtractor" title="Link to this definition"></a></dt>
+<dd><p>Extract name references from an AST subtree.</p>
+<p>Walks an AST node and collects identifiers into categorised lists,
+with optional filtering for <code class="docutils literal notranslate"><span class="pre">self</span></code>-prefixed attribute access and
+library-namespaced names.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>check</strong> (<em>bool</em>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, suppress collection of bare attribute names
+(i.e. only <code class="docutils literal notranslate"><span class="pre">self.attr</span></code> forms are collected for attributes).</p></li>
+<li><p><strong>check1</strong> (<em>bool</em>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, treat <code class="docutils literal notranslate"><span class="pre">self.&lt;attr&gt;</span></code> access as a single
+qualified name (e.g. <code class="docutils literal notranslate"><span class="pre">'self.foo'</span></code>) rather than resolving the
+constituent parts separately.</p></li>
+<li><p><strong>libo</strong> (<em>str</em>) – The library name to exclude from name collection. Any
+<code class="xref py py-class docutils literal notranslate"><span class="pre">ast.Attribute</span></code> node whose unparsed form contains this string
+is skipped entirely.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Variables<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>list</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – Collected variable and attribute name references.</p></li>
+<li><p><strong>constants</strong> (<em>list</em>) – Collected constant values.</p></li>
+<li><p><strong>types</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – Collected annotation type names from
+<code class="xref py py-class docutils literal notranslate"><span class="pre">ast.AnnAssign</span></code> nodes.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pig.synth.call.ParentAst">
+<span class="sig-prename descclassname"><span class="pre">pig.synth.call.</span></span><span class="sig-name descname"><span class="pre">ParentAst</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pig.synth.call.ParentAst" title="Link to this definition"></a></dt>
+<dd><p>Build a mapping from each AST node to its direct children.</p>
+<p>Walks the entire AST and collects, for each node, the set of its
+immediate child nodes as returned by <code class="xref py py-func docutils literal notranslate"><span class="pre">ast.iter_child_nodes()</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>root</strong> (<em>ast.AST</em>) – The root AST node to walk.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A mapping from each parent node to the set of its direct
+children.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict[ast.AST, set[ast.AST]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pig.synth.call.Preparation">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pig.synth.call.</span></span><span class="sig-name descname"><span class="pre">Preparation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">apios</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pig.synth.call.Preparation" title="Link to this definition"></a></dt>
+<dd><p>Build a call-relation table and collect API usage nodes from the AST.</p>
+<p>Visits the AST to produce two main data structures:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">tableM</span></code>: a call-relation mapping of the form
+<code class="docutils literal notranslate"><span class="pre">{callee:</span> <span class="pre">{caller,</span> <span class="pre">...}}</span></code>, expressing which functions must be
+available for a given call to succeed.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">nodes</span></code>: a mapping from each API name in <code class="docutils literal notranslate"><span class="pre">apios</span></code> to the set of
+AST nodes where it is referenced.</p></li>
+</ul>
+<p>Function and class definitions are also catalogued in <code class="docutils literal notranslate"><span class="pre">funcdefs</span></code> and
+<code class="docutils literal notranslate"><span class="pre">classdefs</span></code> respectively for later use by dependency resolution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>func</strong> (<em>list</em>) – The list of function names to track in the call-relation
+table.</p></li>
+<li><p><strong>apios</strong> (<em>list</em>) – The list of old API names whose usage sites are to be
+collected. Defaults to an empty list.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Variables<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>tableM</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Set</em><em>[</em><em>str</em><em>]</em><em>]</em>) – Call-relation table mapping each callee name to the set
+of caller names that depend on it.</p></li>
+<li><p><strong>nodes</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>set</em><em>[</em><em>ast.AST</em><em>]</em><em>]</em>) – Mapping from each API name to the set of AST nodes where
+it is referenced.</p></li>
+<li><p><strong>funcdefs</strong> (<em>dict</em>) – Mapping from function name to its defining
+<code class="xref py py-class docutils literal notranslate"><span class="pre">ast.FunctionDef</span></code> or <code class="xref py py-class docutils literal notranslate"><span class="pre">ast.AsyncFunctionDef</span></code> node.</p></li>
+<li><p><strong>classdefs</strong> (<em>dict</em>) – Mapping from class name to its defining
+<code class="xref py py-class docutils literal notranslate"><span class="pre">ast.ClassDef</span></code> node.</p></li>
+<li><p><strong>apios</strong> (<em>list</em>) – The list of old API names being tracked.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-pig.synth.fix_import">
+<span id="fix-import"></span><h2>fix_import<a class="headerlink" href="#module-pig.synth.fix_import" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="pig.synth.fix_import.ImportFindPath">
+<span class="sig-prename descclassname"><span class="pre">pig.synth.fix_import.</span></span><span class="sig-name descname"><span class="pre">ImportFindPath</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">libo</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">libn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nodes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">apis</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pig.synth.fix_import.ImportFindPath" title="Link to this definition"></a></dt>
+<dd><p>Resolve the correct import statement for a variable in the new library.</p>
+<p>Searches the new library’s API map to find all candidate import paths for
+<code class="docutils literal notranslate"><span class="pre">v1</span></code>, then validates each candidate against the actual usage pattern in
+<code class="docutils literal notranslate"><span class="pre">nodes</span></code> to determine the most appropriate import form. Duplicate
+candidates are resolved via <a class="reference internal" href="#pig.synth.fix_import.duplicate_imports_resolve" title="pig.synth.fix_import.duplicate_imports_resolve"><code class="xref py py-func docutils literal notranslate"><span class="pre">duplicate_imports_resolve()</span></code></a> or, as a
+last resort, by string similarity against <code class="docutils literal notranslate"><span class="pre">cmp</span></code>.</p>
+<p>The resolution process is handled by three inner helpers:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">find(v1)</span></code>: scans <code class="docutils literal notranslate"><span class="pre">apis</span></code> to collect all candidate paths where
+<code class="docutils literal notranslate"><span class="pre">v1</span></code> appears as a class, function, constant, or module name.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pmaker(cand_path)</span></code>: expands a single candidate into the set of
+concrete import forms it could take (e.g. <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">A.B</span></code> and
+<code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">A</span> <span class="pre">import</span> <span class="pre">B</span></code>).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">check(nodes,</span> <span class="pre">cand_path)</span></code>: inspects how <code class="docutils literal notranslate"><span class="pre">v1</span></code> is actually used in
+each node and selects the import form whose path components match the
+usage pattern.</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>libo</strong> (<em>str</em>) – The name of the original library.</p></li>
+<li><p><strong>libn</strong> (<em>str</em>) – The name of the new library.</p></li>
+<li><p><strong>v1</strong> (<em>str</em>) – The variable name whose import statement is to be resolved.</p></li>
+<li><p><strong>nodes</strong> (<em>set</em>) – The set of AST nodes where <code class="docutils literal notranslate"><span class="pre">v1</span></code> is referenced, used to
+infer the correct import form from actual usage.</p></li>
+<li><p><strong>apis</strong> – The API map of the new library, structured as
+<code class="docutils literal notranslate"><span class="pre">{module_path:</span> <span class="pre">(classes,</span> <span class="pre">_,</span> <span class="pre">functions,</span> <span class="pre">_,</span> <span class="pre">constants)}</span></code>.</p></li>
+<li><p><strong>cmp</strong> (<em>ast.Import</em><em> | </em><em>ast.ImportFrom</em><em> | </em><em>None</em>) – An optional existing import node from the LLM-generated code,
+used as a similarity reference when duplicate candidates remain after
+resolution. Defaults to <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A set containing the resolved import node(s). Normally contains
+a single <code class="xref py py-class docutils literal notranslate"><span class="pre">ast.Import</span></code> or <code class="xref py py-class docutils literal notranslate"><span class="pre">ast.ImportFrom</span></code> node; may
+contain multiple if resolution is inconclusive.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>set</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pig.synth.fix_import.Importfind">
+<span class="sig-prename descclassname"><span class="pre">pig.synth.fix_import.</span></span><span class="sig-name descname"><span class="pre">Importfind</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">code</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nodes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">libo</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">libn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">apis</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">check</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pig.synth.fix_import.Importfind" title="Link to this definition"></a></dt>
+<dd><p>Resolve and validate the import statement for a given variable name.</p>
+<p>Searches <code class="docutils literal notranslate"><span class="pre">code</span></code> for existing import statements that define <code class="docutils literal notranslate"><span class="pre">var</span></code>,
+then verifies and corrects the import path against the actual library
+structure. If <code class="docutils literal notranslate"><span class="pre">check</span></code> is <code class="docutils literal notranslate"><span class="pre">True</span></code>, the resolved import is validated
+and potentially rewritten to point to the correct new library path using
+<a class="reference internal" href="#pig.synth.fix_import.is_total_import" title="pig.synth.fix_import.is_total_import"><code class="xref py py-func docutils literal notranslate"><span class="pre">is_total_import()</span></code></a>, <code class="xref py py-func docutils literal notranslate"><span class="pre">llm_pre.libname()</span></code>, and
+<a class="reference internal" href="#pig.synth.fix_import.ImportFindPath" title="pig.synth.fix_import.ImportFindPath"><code class="xref py py-func docutils literal notranslate"><span class="pre">ImportFindPath()</span></code></a>. If <code class="docutils literal notranslate"><span class="pre">check</span></code> is <code class="docutils literal notranslate"><span class="pre">False</span></code>, the existing import
+is returned as-is.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>code</strong> (<em>ast.AST</em>) – The AST of the file being analysed, used to extract
+existing import statements.</p></li>
+<li><p><strong>nodes</strong> (<em>set</em>) – The set of AST nodes where <code class="docutils literal notranslate"><span class="pre">var</span></code> is referenced, used
+to resolve the fully qualified import path via <a class="reference internal" href="#pig.synth.fix_import.is_total_import" title="pig.synth.fix_import.is_total_import"><code class="xref py py-func docutils literal notranslate"><span class="pre">is_total_import()</span></code></a>.</p></li>
+<li><p><strong>var</strong> (<em>str</em>) – The variable name whose import statement is to be resolved.</p></li>
+<li><p><strong>libo</strong> (<em>str</em>) – The name of the original library.</p></li>
+<li><p><strong>libn</strong> (<em>str</em>) – The name of the new library.</p></li>
+<li><p><strong>apis</strong> – The API mapping passed through to <a class="reference internal" href="#pig.synth.fix_import.ImportFindPath" title="pig.synth.fix_import.ImportFindPath"><code class="xref py py-func docutils literal notranslate"><span class="pre">ImportFindPath()</span></code></a>
+for path resolution.</p></li>
+<li><p><strong>check</strong> (<em>bool</em>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, validate and rewrite the import path to match
+the correct new library. If <code class="docutils literal notranslate"><span class="pre">False</span></code>, return the existing import
+statement unchanged. Defaults to <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A tuple <code class="docutils literal notranslate"><span class="pre">(import_nodes,</span> <span class="pre">resolved_vars)</span></code> where <code class="docutils literal notranslate"><span class="pre">import_nodes</span></code>
+is a set of corrected <code class="xref py py-class docutils literal notranslate"><span class="pre">ast.Import</span></code> or <code class="xref py py-class docutils literal notranslate"><span class="pre">ast.ImportFrom</span></code>
+nodes, and <code class="docutils literal notranslate"><span class="pre">resolved_vars</span></code> is the set of variable names that were
+successfully resolved.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple[set, set]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pig.synth.fix_import.check_available_import">
+<span class="sig-prename descclassname"><span class="pre">pig.synth.fix_import.</span></span><span class="sig-name descname"><span class="pre">check_available_import</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">import_node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">libn</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pig.synth.fix_import.check_available_import" title="Link to this definition"></a></dt>
+<dd><p>Check whether an import node resolves to a real path in the library source.</p>
+<p>Converts the dotted module path of <code class="docutils literal notranslate"><span class="pre">import_node</span></code> into a file system path
+and verifies that it exists within the library’s source tree. For
+<code class="xref py py-class docutils literal notranslate"><span class="pre">ast.ImportFrom</span></code> nodes, additionally checks that the imported name
+is actually accessible at that path via <a class="reference internal" href="#pig.synth.fix_import.get_accessible_apis" title="pig.synth.fix_import.get_accessible_apis"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_accessible_apis()</span></code></a>.</p>
+<p>Import nodes that do not reference <code class="docutils literal notranslate"><span class="pre">libn</span></code> at all are considered valid
+and return <code class="docutils literal notranslate"><span class="pre">True</span></code> immediately.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>import_node</strong> (<em>Union</em><em>[</em><em>ast.Import</em><em>, </em><em>ast.ImportFrom</em><em>]</em>) – The import statement to validate.</p></li>
+<li><p><strong>libn</strong> (<em>str</em>) – The name of the new library, used to locate its source
+root via <code class="docutils literal notranslate"><span class="pre">GIT_LOC</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">True</span></code> if the import path exists in the library source tree
+and (for <code class="xref py py-class docutils literal notranslate"><span class="pre">ast.ImportFrom</span></code>) the imported name is accessible
+there; <code class="docutils literal notranslate"><span class="pre">False</span></code> otherwise.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If <code class="docutils literal notranslate"><span class="pre">import_node</span></code> is neither an <code class="xref py py-class docutils literal notranslate"><span class="pre">ast.Import</span></code>
+nor an <code class="xref py py-class docutils literal notranslate"><span class="pre">ast.ImportFrom</span></code>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pig.synth.fix_import.duplicate_imports_resolve">
+<span class="sig-prename descclassname"><span class="pre">pig.synth.fix_import.</span></span><span class="sig-name descname"><span class="pre">duplicate_imports_resolve</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">imps</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nodes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">libn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pig.synth.fix_import.duplicate_imports_resolve" title="Link to this definition"></a></dt>
+<dd><p>Resolve a set of duplicate import candidates down to a single correct import.</p>
+<p>Given multiple candidate import statements for the same variable <code class="docutils literal notranslate"><span class="pre">var</span></code>,
+inspects how <code class="docutils literal notranslate"><span class="pre">var</span></code> is actually used in <code class="docutils literal notranslate"><span class="pre">nodes</span></code> and cross-references
+each candidate against the new library’s source files to determine which
+import is valid. Duplicates that survive the initial check are further
+resolved by module path depth or import type counts.</p>
+<p>The resolution process is handled by several inner helpers:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">api_type()</span></code>: determines whether <code class="docutils literal notranslate"><span class="pre">var</span></code> is used as an
+<code class="xref py py-class docutils literal notranslate"><span class="pre">ast.Attribute</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">ast.Call</span></code>, or bare <code class="xref py py-class docutils literal notranslate"><span class="pre">ast.Name</span></code>
+by tallying occurrences across <code class="docutils literal notranslate"><span class="pre">nodes</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">find_next_attribute(nodes,</span> <span class="pre">var)</span></code>: identifies the most common
+attribute accessed on <code class="docutils literal notranslate"><span class="pre">var</span></code> (e.g. <code class="docutils literal notranslate"><span class="pre">var.attr</span></code>), used when usage
+type is <code class="docutils literal notranslate"><span class="pre">'Attribute'</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">find_args(node)</span></code>: extracts the positional and keyword argument
+counts from a <code class="xref py py-class docutils literal notranslate"><span class="pre">ast.Call</span></code> node.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">find_last_call(node)</span></code>: returns the final name or attribute in a
+call expression (e.g. <code class="docutils literal notranslate"><span class="pre">c</span></code> from <code class="docutils literal notranslate"><span class="pre">a.b.c()</span></code>).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">check(...)</span></code>: validates a single candidate import against the
+library’s accessible APIs and the observed usage type, returning
+<code class="docutils literal notranslate"><span class="pre">(True,</span> <span class="pre">import_node)</span></code> if valid or <code class="docutils literal notranslate"><span class="pre">(False,</span> <span class="pre">None)</span></code> otherwise.</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>imps</strong> (<em>set</em><em>[</em><em>ast.Import</em><em> | </em><em>ast.ImportFrom</em><em>]</em>) – The set of candidate <code class="xref py py-class docutils literal notranslate"><span class="pre">ast.Import</span></code> or
+<code class="xref py py-class docutils literal notranslate"><span class="pre">ast.ImportFrom</span></code> nodes to resolve.</p></li>
+<li><p><strong>nodes</strong> (<em>set</em><em>[</em><em>ast.AST</em><em>]</em>) – The AST nodes where <code class="docutils literal notranslate"><span class="pre">var</span></code> is referenced, used to infer
+usage type and argument signatures.</p></li>
+<li><p><strong>libn</strong> (<em>str</em>) – The name of the new library, used to locate its source
+files via <code class="docutils literal notranslate"><span class="pre">GIT_LOC</span></code>.</p></li>
+<li><p><strong>var</strong> (<em>str</em>) – The variable name whose import is being resolved.</p></li>
+<li><p><strong>cmp</strong> (<em>ast.Import</em><em> | </em><em>ast.ImportFrom</em><em> | </em><em>None</em>) – An optional existing import node from the LLM-generated
+code, used as a string-similarity reference if duplicates remain
+after all other resolution steps. Defaults to <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A set containing a single resolved import node. May contain
+more than one entry if resolution is inconclusive.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>set[ast.Import | ast.ImportFrom]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pig.synth.fix_import.extract_api_related_names">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pig.synth.fix_import.</span></span><span class="sig-name descname"><span class="pre">extract_api_related_names</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">apio</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pig.synth.fix_import.extract_api_related_names" title="Link to this definition"></a></dt>
+<dd><p>Extract all names referenced in an API-related expression.</p>
+<p>Visits an AST subtree and collects every <code class="xref py py-class docutils literal notranslate"><span class="pre">ast.Name</span></code> identifier
+and <code class="xref py py-class docutils literal notranslate"><span class="pre">ast.Attribute</span></code> name that appears within expressions
+involving <code class="docutils literal notranslate"><span class="pre">apio</span></code>. For <code class="xref py py-class docutils literal notranslate"><span class="pre">ast.Call</span></code> nodes, only arguments or the
+function itself that contain <code class="docutils literal notranslate"><span class="pre">apio</span></code> are traversed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>apio</strong> (<em>str</em>) – The old API name used to filter which call sub-expressions
+are visited.</p>
+</dd>
+<dt class="field-even">Variables<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>names</strong> (<em>set</em><em>[</em><em>str</em><em>]</em>) – The set of collected name strings.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pig.synth.fix_import.get_accessible_apis">
+<span class="sig-prename descclassname"><span class="pre">pig.synth.fix_import.</span></span><span class="sig-name descname"><span class="pre">get_accessible_apis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">libn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pig.synth.fix_import.get_accessible_apis" title="Link to this definition"></a></dt>
+<dd><p>Extract publicly accessible API names and their signatures from a library path.</p>
+<p>Parses the Python source file or directory at <code class="docutils literal notranslate"><span class="pre">_path</span></code> and collects all
+top-level classes, functions, annotated assignments, global variables, and
+re-exported names. If <code class="docutils literal notranslate"><span class="pre">name</span></code> is specified, only the entry matching that
+name is returned, with the source path appended for import resolution.</p>
+<p>The extraction is handled by three inner helpers:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">get_apis(path,</span> <span class="pre">stack)</span></code>: recursively parses files and directories,
+populating the result dicts with discovered API entries.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">get_func_args(node)</span></code>: extracts the full argument signature of a
+function, including positional, keyword-only, default, and variadic
+arguments.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">get_class_args(node)</span></code>: extracts the <code class="docutils literal notranslate"><span class="pre">__init__</span></code> signature of a
+class, falling back to <code class="docutils literal notranslate"><span class="pre">(0,</span> <span class="pre">…)</span></code> if no <code class="docutils literal notranslate"><span class="pre">__init__</span></code> is present and
+no base classes exist, or <code class="docutils literal notranslate"><span class="pre">('inf',</span> <span class="pre">…)</span></code> if base classes are present.</p></li>
+</ul>
+<p>Each API entry is stored as a list of the form:
+<code class="docutils literal notranslate"><span class="pre">[type,</span> <span class="pre">min_args,</span> <span class="pre">min_kwargs,</span> <span class="pre">max_args,</span> <span class="pre">max_kwargs,</span> <span class="pre">default_names,</span>
+<span class="pre">kw_names,</span> <span class="pre">ordinary_names]</span></code> where <code class="docutils literal notranslate"><span class="pre">type</span></code> is one of <code class="docutils literal notranslate"><span class="pre">'class'</span></code>,
+<code class="docutils literal notranslate"><span class="pre">'func'</span></code>, or <code class="docutils literal notranslate"><span class="pre">'var'</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>_path</strong> (<em>Path</em>) – Path to the library source file (<code class="docutils literal notranslate"><span class="pre">.py</span></code>) or directory to
+inspect.</p></li>
+<li><p><strong>libn</strong> (<em>str</em>) – The name of the library being inspected (reserved for future
+use).</p></li>
+<li><p><strong>name</strong> (<em>str</em><em> | </em><em>None</em>) – If provided, only the API entry matching this name is
+returned, with <code class="docutils literal notranslate"><span class="pre">[path,</span> <span class="pre">'imp']</span></code> appended to its value.</p></li>
+<li><p><strong>dir</strong> (<em>bool</em>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, treat <code class="docutils literal notranslate"><span class="pre">_path</span></code> as a directory and enumerate its
+submodules instead of parsing a single file.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A tuple <code class="docutils literal notranslate"><span class="pre">(result,</span> <span class="pre">result2)</span></code> where <code class="docutils literal notranslate"><span class="pre">result</span></code> maps each API name
+to its signature list, and <code class="docutils literal notranslate"><span class="pre">result2</span></code> maps names discovered in
+<code class="docutils literal notranslate"><span class="pre">__init__.py</span></code> (for directory paths) to their signatures.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple[dict, dict]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pig.synth.fix_import.is_total_import">
+<span class="sig-prename descclassname"><span class="pre">pig.synth.fix_import.</span></span><span class="sig-name descname"><span class="pre">is_total_import</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">libn</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pig.synth.fix_import.is_total_import" title="Link to this definition"></a></dt>
+<dd><p>Resolve the fully qualified import path of a variable within a library.</p>
+<p>Walks the AST to reconstruct the attribute access chain leading to
+<code class="docutils literal notranslate"><span class="pre">var</span></code> (e.g. <code class="docutils literal notranslate"><span class="pre">torch.nn.Module</span></code> → <code class="docutils literal notranslate"><span class="pre">['torch',</span> <span class="pre">'nn',</span> <span class="pre">'Module']</span></code>),
+then verifies each component against the library’s file system to
+determine how deep the chain corresponds to a real module path.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>root</strong> (<em>ast.AST</em>) – The AST node to search for the variable reference.</p></li>
+<li><p><strong>var</strong> (<em>str</em>) – The name of the variable or attribute whose import path
+is to be resolved.</p></li>
+<li><p><strong>libn</strong> (<em>str</em>) – The name of the target library, used to look up the
+library’s root path from <code class="docutils literal notranslate"><span class="pre">GIT_LOC</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The fully qualified dotted path of <code class="docutils literal notranslate"><span class="pre">var</span></code> up to the deepest
+resolvable module component (e.g. <code class="docutils literal notranslate"><span class="pre">'torch.nn'</span></code>).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-pig.synth.llm_pre">
+<span id="llm-pre"></span><h2>llm_pre<a class="headerlink" href="#module-pig.synth.llm_pre" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pig.synth.llm_pre.DefUseGraph">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pig.synth.llm_pre.</span></span><span class="sig-name descname"><span class="pre">DefUseGraph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">imps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pig.synth.llm_pre.DefUseGraph" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pig.synth.llm_pre.DupImpSolver">
+<span class="sig-prename descclassname"><span class="pre">pig.synth.llm_pre.</span></span><span class="sig-name descname"><span class="pre">DupImpSolver</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">code</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pig.synth.llm_pre.DupImpSolver" title="Link to this definition"></a></dt>
+<dd><p>Remove duplicate import statements and reinsert them as deduplicated entries.</p>
+<p>Uses an inner <code class="xref py py-class docutils literal notranslate"><span class="pre">ast.NodeTransformer</span></code> (<code class="docutils literal notranslate"><span class="pre">ImpDupRemover</span></code>) to strip
+all <code class="xref py py-class docutils literal notranslate"><span class="pre">ast.Import</span></code> and <code class="xref py py-class docutils literal notranslate"><span class="pre">ast.ImportFrom</span></code> nodes from the module
+body while collecting their unique aliases. A second inner helper
+(<code class="docutils literal notranslate"><span class="pre">ImpDupSolver</span></code>) then reinserts the deduplicated imports at the top of
+the module.</p>
+<p>Deduplication is keyed on <code class="docutils literal notranslate"><span class="pre">(name,</span> <span class="pre">asname)</span></code> for <code class="xref py py-class docutils literal notranslate"><span class="pre">ast.Import</span></code> and
+on <code class="docutils literal notranslate"><span class="pre">(module,</span> <span class="pre">level)</span></code> → <code class="docutils literal notranslate"><span class="pre">{(name,</span> <span class="pre">asname),</span> <span class="pre">...}</span></code> for
+<code class="xref py py-class docutils literal notranslate"><span class="pre">ast.ImportFrom</span></code>, so multiple <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">X</span> <span class="pre">import</span> <span class="pre">a,</span> <span class="pre">b</span></code> statements
+for the same module are merged into a single node.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>code</strong> (<em>ast.Module</em>) – The AST module whose import statements are to be deduplicated.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The modified AST module with all duplicate imports removed and
+unique imports reinserted at the top of the module body.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ast.AST</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pig.synth.llm_pre.ExtractArgs">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pig.synth.llm_pre.</span></span><span class="sig-name descname"><span class="pre">ExtractArgs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">only_args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pig.synth.llm_pre.ExtractArgs" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pig.synth.llm_pre.ExtractVarMap">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pig.synth.llm_pre.</span></span><span class="sig-name descname"><span class="pre">ExtractVarMap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nodeo</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pig.synth.llm_pre.ExtractVarMap" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pig.synth.llm_pre.FindLastExpr">
+<span class="sig-prename descclassname"><span class="pre">pig.synth.llm_pre.</span></span><span class="sig-name descname"><span class="pre">FindLastExpr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">depth</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pig.synth.llm_pre.FindLastExpr" title="Link to this definition"></a></dt>
+<dd><p>Find the statement-type ancestor of an expression node at the given depth.</p>
+<p>Traverses the parent mapping upward, skipping intermediate
+expression-type nodes, until a statement-type (<code class="docutils literal notranslate"><span class="pre">stmt_type</span></code>) ancestor
+is reached. Similar to <code class="xref py py-func docutils literal notranslate"><span class="pre">FindRealParent()</span></code>, but returns <code class="docutils literal notranslate"><span class="pre">node</span></code>
+itself (rather than <code class="docutils literal notranslate"><span class="pre">None</span></code>) if no ancestor is found.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>parent</strong> (<em>dict</em>) – The parent mapping as produced by <code class="xref py py-func docutils literal notranslate"><span class="pre">ParentAst()</span></code>,
+mapping each node to the set of its direct children.</p></li>
+<li><p><strong>node</strong> (<em>ast.AST</em>) – The AST expression node to start traversal from.</p></li>
+<li><p><strong>depth</strong> (<em>int</em>) – The number of statement-level hops to traverse.
+<code class="docutils literal notranslate"><span class="pre">depth=1</span></code> returns the immediate statement ancestor of <code class="docutils literal notranslate"><span class="pre">node</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The statement-type ancestor at the requested depth, <code class="docutils literal notranslate"><span class="pre">None</span></code>
+if an unexpected node type is encountered during traversal, or
+<code class="docutils literal notranslate"><span class="pre">node</span></code> itself if no parent is found at all.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ast.AST | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pig.synth.llm_pre.ModUseVars">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pig.synth.llm_pre.</span></span><span class="sig-name descname"><span class="pre">ModUseVars</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mapping</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">funcdefs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ParentO</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name_of_nodeo</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pig.synth.llm_pre.ModUseVars" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pig.synth.llm_pre.check_two_sim">
+<span class="sig-prename descclassname"><span class="pre">pig.synth.llm_pre.</span></span><span class="sig-name descname"><span class="pre">check_two_sim</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">roota</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rooto</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">noden</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rootc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">surnodes</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pig.synth.llm_pre.check_two_sim" title="Link to this definition"></a></dt>
+<dd><p>Rename a variable in <code class="docutils literal notranslate"><span class="pre">noden</span></code> to match its counterpart in the new library code.</p>
+<p>Locates the definition of <code class="docutils literal notranslate"><span class="pre">var</span></code> in the old API’s AST (<code class="docutils literal notranslate"><span class="pre">roota</span></code>),
+finds the corresponding name in the new library’s AST (<code class="docutils literal notranslate"><span class="pre">rootc</span></code>) via
+<code class="xref py py-func docutils literal notranslate"><span class="pre">matching.matcher1()</span></code>, and rewrites all <code class="xref py py-class docutils literal notranslate"><span class="pre">ast.Name</span></code> references
+to <code class="docutils literal notranslate"><span class="pre">var</span></code> in <code class="docutils literal notranslate"><span class="pre">noden</span></code> and <code class="docutils literal notranslate"><span class="pre">surnodes</span></code> to use the new name.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>roota</strong> (<em>ast.AST</em>) – The AST of the old API usage context, used to locate the
+definition of <code class="docutils literal notranslate"><span class="pre">var</span></code>.</p></li>
+<li><p><strong>rooto</strong> (<em>ast.AST</em>) – The original source AST (reserved for future use).</p></li>
+<li><p><strong>var</strong> (<em>str</em>) – The variable name to look up and potentially rename.</p></li>
+<li><p><strong>noden</strong> (<em>ast.AST</em>) – The primary AST node in which <code class="docutils literal notranslate"><span class="pre">var</span></code> references are to be
+rewritten.</p></li>
+<li><p><strong>rootc</strong> (<em>str</em>) – The unparsed source string of the new library’s AST,
+used as the rename target by <code class="xref py py-func docutils literal notranslate"><span class="pre">matching.matcher1()</span></code>.</p></li>
+<li><p><strong>surnodes</strong> (<em>list</em><em>[</em><em>ast.AST</em><em>]</em>) – Additional AST nodes in which <code class="docutils literal notranslate"><span class="pre">var</span></code> references are
+also rewritten if a new name is found.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">True</span></code> if at least one reference to <code class="docutils literal notranslate"><span class="pre">var</span></code> was renamed,
+<code class="docutils literal notranslate"><span class="pre">False</span></code> otherwise.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pig.synth.llm_pre.extract_var_map">
+<span class="sig-prename descclassname"><span class="pre">pig.synth.llm_pre.</span></span><span class="sig-name descname"><span class="pre">extract_var_map</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nodeo</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">noden</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">codeo</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coden</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parento</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pig.synth.llm_pre.extract_var_map" title="Link to this definition"></a></dt>
+<dd><p>Build a variable rename mapping between old and new API usage nodes.</p>
+<p>Compares the variables used in <code class="docutils literal notranslate"><span class="pre">nodeo</span></code> (old API) and <code class="docutils literal notranslate"><span class="pre">noden</span></code> (new API)
+via <a class="reference internal" href="#pig.synth.llm_pre.ExtractVarMap" title="pig.synth.llm_pre.ExtractVarMap"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExtractVarMap</span></code></a> and filters the raw candidates down to a
+mapping of <code class="docutils literal notranslate"><span class="pre">{old_name:</span> <span class="pre">new_name}</span></code> pairs that represent genuine renames.</p>
+<p>Filtering is handled by four inner helpers:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">check_text_sim(var1,</span> <span class="pre">var2)</span></code>: accepts a pair if their string
+similarity exceeds 0.5 or one is a substring of the other.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">check_ast_sim(var1,</span> <span class="pre">var2,</span> <span class="pre">codeo,</span> <span class="pre">coden)</span></code>: locates the assignment
+nodes for each variable and delegates to <code class="xref py py-func docutils literal notranslate"><span class="pre">matching.single_matcher()</span></code>
+to confirm structural similarity.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">check_targets(node,</span> <span class="pre">var)</span></code>: searches a single AST node for an
+assignment to <code class="docutils literal notranslate"><span class="pre">var</span></code>, handling <code class="xref py py-class docutils literal notranslate"><span class="pre">ast.Assign</span></code>,
+<code class="xref py py-class docutils literal notranslate"><span class="pre">ast.AugAssign</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">ast.AnnAssign</span></code>, and
+<code class="xref py py-class docutils literal notranslate"><span class="pre">ast.With</span></code> targets.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">filter(codeo,</span> <span class="pre">coden,</span> <span class="pre">v1,</span> <span class="pre">parento,</span> <span class="pre">nodeo)</span></code>: excludes pairs where
+the variable is defined in both the old and new code within the same
+scope, indicating it is not a rename but a shared local name.</p></li>
+</ul>
+<p>When <code class="docutils literal notranslate"><span class="pre">b0</span></code> is <code class="docutils literal notranslate"><span class="pre">True</span></code>, only AST-similarity is used and constant
+assignments that directly match their value in the old code are excluded.
+When <code class="docutils literal notranslate"><span class="pre">b0</span></code> is <code class="docutils literal notranslate"><span class="pre">False</span></code>, both text and AST similarity are applied
+alongside the scope filter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nodeo</strong> (<em>ast.AST</em>) – The old API AST node whose variable references are the
+source of the mapping.</p></li>
+<li><p><strong>noden</strong> (<em>ast.AST</em>) – The new API AST node whose variable references are the
+rename targets.</p></li>
+<li><p><strong>codeo</strong> (<em>ast.AST</em>) – The full old code AST, used to locate variable definitions
+for similarity checks.</p></li>
+<li><p><strong>coden</strong> (<em>ast.AST</em>) – The full new code AST, used to locate variable definitions
+for similarity checks.</p></li>
+<li><p><strong>parento</strong> – The parent mapping of the old code as produced by
+<code class="xref py py-func docutils literal notranslate"><span class="pre">call.ParentAst()</span></code>, used for scope resolution.</p></li>
+<li><p><strong>b0</strong> (<em>bool</em>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, apply AST-similarity-only filtering suitable for
+direct API node comparisons. If <code class="docutils literal notranslate"><span class="pre">False</span></code>, apply the full text and
+AST similarity pipeline with scope filtering. Defaults to <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A mapping from each old variable name to its corresponding new
+variable name.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict[str, str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pig.synth.llm_pre.is_async">
+<span class="sig-prename descclassname"><span class="pre">pig.synth.llm_pre.</span></span><span class="sig-name descname"><span class="pre">is_async</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pig.synth.llm_pre.is_async" title="Link to this definition"></a></dt>
+<dd><p>Check whether an AST node contains any asynchronous constructs.</p>
+<p>Walks the AST subtree rooted at <code class="docutils literal notranslate"><span class="pre">node</span></code> and returns <code class="docutils literal notranslate"><span class="pre">True</span></code> if any
+<code class="xref py py-class docutils literal notranslate"><span class="pre">ast.Await</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">ast.AsyncWith</span></code>, or <code class="xref py py-class docutils literal notranslate"><span class="pre">ast.AsyncFor</span></code>
+node is found.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>node</strong> (<em>ast.AST</em>) – The AST node to inspect.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">True</span></code> if the node contains asynchronous constructs,
+<code class="docutils literal notranslate"><span class="pre">False</span></code> otherwise.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pig.synth.llm_pre.libname">
+<span class="sig-prename descclassname"><span class="pre">pig.synth.llm_pre.</span></span><span class="sig-name descname"><span class="pre">libname</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">libo</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pig.synth.llm_pre.libname" title="Link to this definition"></a></dt>
+<dd><p>Resolve the importable top-level package name for a given library identifier.</p>
+<p>Looks up <code class="docutils literal notranslate"><span class="pre">libo</span></code> in the combined git location map (<code class="docutils literal notranslate"><span class="pre">GIT_LOC</span></code>) and derives the importable name from the final
+component of its repository path. A small set of known mismatches between
+PyPI package names and importable names are corrected by hard-coded
+overrides.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>libo</strong> (<em>str</em>) – The library identifier (typically the PyPI package name) to
+resolve.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The importable top-level package name for <code class="docutils literal notranslate"><span class="pre">libo</span></code>, or <code class="docutils literal notranslate"><span class="pre">libo</span></code>
+itself if it cannot be found in the location map.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pig.synth.llm_pre.scope_name">
+<span class="sig-prename descclassname"><span class="pre">pig.synth.llm_pre.</span></span><span class="sig-name descname"><span class="pre">scope_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nodeo</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">noden</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pig.synth.llm_pre.scope_name" title="Link to this definition"></a></dt>
+<dd><p>Return the name of the enclosing function or class scope for a node.</p>
+<p>Determines the appropriate scope by inspecting <code class="docutils literal notranslate"><span class="pre">noden</span></code>: if the new node
+is itself a function or class definition, the search starts two levels up
+from <code class="docutils literal notranslate"><span class="pre">nodeo</span></code>; otherwise it starts one level up. The scope name is
+resolved via <code class="xref py py-func docutils literal notranslate"><span class="pre">slicing.extract_name()</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nodeo</strong> (<em>ast.AST</em>) – The original AST node whose enclosing scope is to be found.</p></li>
+<li><p><strong>noden</strong> (<em>ast.AST</em>) – The new AST node used to decide the traversal depth.</p></li>
+<li><p><strong>parent</strong> (<em>dict</em>) – The parent mapping as produced by <code class="xref py py-func docutils literal notranslate"><span class="pre">call.ParentAst()</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The name of the enclosing function, class, or <code class="docutils literal notranslate"><span class="pre">'module'</span></code> if
+the traversal reaches the module root.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-pig.synth.matching">
+<span id="matching"></span><h2>matching<a class="headerlink" href="#module-pig.synth.matching" title="Link to this heading"></a></h2>
+<p>This file is used to match the target ast node with the new ast node
+Input: target node, LLM Code
+Output: matched ast node</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="pig.synth.matching.filter_stmt">
+<span class="sig-prename descclassname"><span class="pre">pig.synth.matching.</span></span><span class="sig-name descname"><span class="pre">filter_stmt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">noden</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nodeo</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">apins</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rootn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">apio</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pig.synth.matching.filter_stmt" title="Link to this definition"></a></dt>
+<dd><p>Determine whether a new API statement genuinely references a new API.</p>
+<p>Checks whether any name referenced in <code class="docutils literal notranslate"><span class="pre">noden</span></code> corresponds to a known
+new API entry in <code class="docutils literal notranslate"><span class="pre">apins</span></code>, after stripping locally assigned names and
+function arguments that would shadow external references. Several
+early-exit conditions are also handled:</p>
+<ul class="simple">
+<li><p>If <code class="docutils literal notranslate"><span class="pre">noden</span></code> and <code class="docutils literal notranslate"><span class="pre">nodeo</span></code> unparse identically and <code class="docutils literal notranslate"><span class="pre">apio</span></code> is
+<code class="docutils literal notranslate"><span class="pre">'get'</span></code>, returns <code class="docutils literal notranslate"><span class="pre">True</span></code> immediately.</p></li>
+<li><p>If <code class="docutils literal notranslate"><span class="pre">apio</span></code> appears as a string constant inside <code class="docutils literal notranslate"><span class="pre">nodeo</span></code>, returns
+<code class="docutils literal notranslate"><span class="pre">True</span></code> immediately.</p></li>
+</ul>
+<p>Names are collected from <code class="xref py py-class docutils literal notranslate"><span class="pre">ast.Name</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">ast.Attribute</span></code>, and
+<code class="xref py py-class docutils literal notranslate"><span class="pre">ast.operator</span></code> nodes. Import aliases are resolved so that an
+<code class="docutils literal notranslate"><span class="pre">as</span></code>-aliased name is expanded to its original name before matching.
+Locally assigned targets and function arguments within the enclosing
+function or class scope are removed from the candidate set to avoid
+false positives.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>noden</strong> (<em>ast.AST</em>) – The new API AST node whose name references are inspected.</p></li>
+<li><p><strong>nodeo</strong> (<em>ast.AST</em>) – The old API AST node, used for identity comparison and
+constant checking.</p></li>
+<li><p><strong>apins</strong> (<em>dict</em>) – A mapping from API path to lists of <code class="docutils literal notranslate"><span class="pre">(name,</span> <span class="pre">...)</span></code> tuples
+representing known new API names.</p></li>
+<li><p><strong>rootn</strong> (<em>ast.AST</em>) – The root AST module of the new code, used to resolve
+import aliases and locate the enclosing scope.</p></li>
+<li><p><strong>apio</strong> (<em>str</em>) – The old API name, used for the identity and constant
+early-exit checks.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">True</span></code> if any name in <code class="docutils literal notranslate"><span class="pre">noden</span></code> matches a known new API entry,
+<code class="docutils literal notranslate"><span class="pre">False</span></code> otherwise.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pig.synth.matching.matcher">
+<span class="sig-prename descclassname"><span class="pre">pig.synth.matching.</span></span><span class="sig-name descname"><span class="pre">matcher</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rootb_str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">roota_str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nodeo</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">roota</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rooto</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">api</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gumtree</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pig.synth.matching.matcher" title="Link to this definition"></a></dt>
+<dd><p>Find the new code node that corresponds to an old API call node.</p>
+<p>Uses GumTree (via JPype) to compute a tree-diff between the old and new
+code strings, then walks the sub-expressions of <code class="docutils literal notranslate"><span class="pre">nodeo</span></code> to locate the
+best-matching node in <code class="docutils literal notranslate"><span class="pre">roota</span></code>. Matching is performed by unparsing each
+sub-expression, finding its character offsets in <code class="docutils literal notranslate"><span class="pre">rootb_str</span></code>, and
+querying the Java <code class="docutils literal notranslate"><span class="pre">PMatcher</span></code> for the corresponding span in <code class="docutils literal notranslate"><span class="pre">roota_str</span></code>.
+The candidate with the highest vote count across sub-expressions is
+returned as the winner via <code class="xref py py-func docutils literal notranslate"><span class="pre">decide_winner()</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>rootb_str</strong> (<em>str</em>) – The unparsed source string of the old code, used as
+the baseline for the GumTree diff.</p></li>
+<li><p><strong>roota_str</strong> (<em>str</em>) – The unparsed source string of the new code, used as
+the revised version for the GumTree diff.</p></li>
+<li><p><strong>nodeo</strong> (<em>ast.AST</em>) – The old API call node to find a match for. If it is a
+<code class="xref py py-class docutils literal notranslate"><span class="pre">ast.With</span></code> or <code class="xref py py-class docutils literal notranslate"><span class="pre">ast.AsyncWith</span></code>, the context expression
+is used as the matching target.</p></li>
+<li><p><strong>roota</strong> (<em>ast.AST</em>) – The AST of the new code, used to resolve matched character
+spans back to AST nodes via <code class="xref py py-func docutils literal notranslate"><span class="pre">BestMap()</span></code> and to build a parent
+mapping via <code class="xref py py-func docutils literal notranslate"><span class="pre">call.ParentAst()</span></code>.</p></li>
+<li><p><strong>rooto</strong> (<em>ast.AST</em>) – The AST of the old code (reserved for future use).</p></li>
+<li><p><strong>dec</strong> (<em>bool</em>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, return the matched node directly without
+resolving it to its nearest statement ancestor via
+<code class="xref py py-func docutils literal notranslate"><span class="pre">call.FindRealParent()</span></code>. Defaults to <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
+<li><p><strong>api</strong> – Reserved for future use. Defaults to <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p></li>
+<li><p><strong>gumtree</strong> (<em>bool</em>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, use the custom GumTree jar (<code class="docutils literal notranslate"><span class="pre">ours.jar</span></code>);
+otherwise use the default jar (<code class="docutils literal notranslate"><span class="pre">default.jar</span></code>). Also controls
+whether unmatched sub-expressions are treated as hard failures.
+Defaults to <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A tuple <code class="docutils literal notranslate"><span class="pre">(nodeo,</span> <span class="pre">noden)</span></code> where <code class="docutils literal notranslate"><span class="pre">noden</span></code> is the best-matching
+AST node found in <code class="docutils literal notranslate"><span class="pre">roota</span></code>, or <code class="docutils literal notranslate"><span class="pre">None</span></code> if no match could be
+determined. For <code class="xref py py-class docutils literal notranslate"><span class="pre">ast.arg</span></code> nodes with type annotations, returns
+<code class="docutils literal notranslate"><span class="pre">(old_annotation,</span> <span class="pre">new_annotation)</span></code> instead.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple[ast.AST, ast.AST | None]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pig.synth.matching.single_matcher">
+<span class="sig-prename descclassname"><span class="pre">pig.synth.matching.</span></span><span class="sig-name descname"><span class="pre">single_matcher</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rootb_str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">roota_str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nodeo</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">result_noden</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">roota</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pig.synth.matching.single_matcher" title="Link to this definition"></a></dt>
+<dd><p>Determine whether two assignment nodes are structurally equivalent.</p>
+<p>Uses GumTree (via JPype and <code class="docutils literal notranslate"><span class="pre">ours.jar</span></code>) to compute a tree-diff between
+the old and new code strings, then checks whether <code class="docutils literal notranslate"><span class="pre">nodeo</span></code> and
+<code class="docutils literal notranslate"><span class="pre">result_noden</span></code> are matched to each other in the resulting mapping.</p>
+<p>The JVM is started on first call if it is not already running.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>rootb_str</strong> (<em>str</em>) – The unparsed source string of the old code, passed to
+the GumTree matcher as the baseline.</p></li>
+<li><p><strong>roota_str</strong> (<em>str</em>) – The unparsed source string of the new code, passed to
+the GumTree matcher as the revised version.</p></li>
+<li><p><strong>nodeo</strong> (<em>Union</em><em>[</em><em>ast.Assign</em><em>, </em><em>ast.AnnAssign</em><em>, </em><em>ast.AugAssign</em><em>, </em><em>ast.Expression</em><em>]</em>) – The assignment node from the old code to match.</p></li>
+<li><p><strong>result_noden</strong> (<em>Union</em><em>[</em><em>ast.Assign</em><em>, </em><em>ast.AnnAssign</em><em>, </em><em>ast.AugAssign</em><em>, </em><em>ast.Expression</em><em>]</em>) – The assignment node from the new code to match
+against <code class="docutils literal notranslate"><span class="pre">nodeo</span></code>.</p></li>
+<li><p><strong>roota</strong> (<em>ast.AST</em>) – The AST of the new code, used to build a parent mapping
+via <code class="xref py py-func docutils literal notranslate"><span class="pre">call.ParentAst()</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">True</span></code> if <code class="docutils literal notranslate"><span class="pre">nodeo</span></code> and <code class="docutils literal notranslate"><span class="pre">result_noden</span></code> are identified as
+a matched pair by GumTree, <code class="docutils literal notranslate"><span class="pre">False</span></code> otherwise.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pig.synth.matching.total_mappings">
+<span class="sig-prename descclassname"><span class="pre">pig.synth.matching.</span></span><span class="sig-name descname"><span class="pre">total_mappings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rooto</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rootn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">codea</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parento</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mapping</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">libo</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">libn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">oldapi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nodeo</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">noden</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pig.synth.matching.total_mappings" title="Link to this definition"></a></dt>
+<dd><p>Resolve the final variable rename mapping between old and new API code.</p>
+<p>Aggregates per-scope variable mappings collected across multiple nodes
+and filters out invalid candidates — such as library names, API names,
+imported aliases, and names already used as assignment targets in the
+old code — to produce a clean <code class="docutils literal notranslate"><span class="pre">{old_name:</span> <span class="pre">new_name}</span></code> mapping suitable
+for applying to the migrated code.</p>
+<p>Filtering is performed by the inner helper <code class="docutils literal notranslate"><span class="pre">check(val)</span></code>, which rejects
+a candidate new name if any of the following hold:</p>
+<ul class="simple">
+<li><p>The old or new code imports <code class="docutils literal notranslate"><span class="pre">libo</span></code> under an alias that matches <code class="docutils literal notranslate"><span class="pre">val</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">val</span></code> coincides with the old API name, library name, or their
+canonical forms as resolved by <code class="xref py py-func docutils literal notranslate"><span class="pre">llm_pre.libname()</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">val</span></code> is already used as an assignment target or function argument
+in the old code.</p></li>
+</ul>
+<p>If <code class="docutils literal notranslate"><span class="pre">nodeo</span></code>, <code class="docutils literal notranslate"><span class="pre">noden</span></code>, <code class="docutils literal notranslate"><span class="pre">name1</span></code>, and <code class="docutils literal notranslate"><span class="pre">name2</span></code> are all provided,
+node-level mappings extracted via <code class="xref py py-func docutils literal notranslate"><span class="pre">llm_pre.extract_var_map()</span></code> are
+incorporated before the scope-level mapping is applied.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>rooto</strong> (<em>ast.AST</em>) – The AST of the original (old API) code.</p></li>
+<li><p><strong>rootn</strong> (<em>ast.AST</em>) – The AST of the new (LLM-generated) code.</p></li>
+<li><p><strong>codea</strong> (<em>str</em>) – The unparsed source string of the migrated code, used as
+context for name resolution.</p></li>
+<li><p><strong>parento</strong> – The parent mapping of the old code as produced by
+<code class="xref py py-func docutils literal notranslate"><span class="pre">call.ParentAst()</span></code>.</p></li>
+<li><p><strong>mapping</strong> (<em>dict</em><em>[</em><em>tuple</em><em>[</em><em>str</em><em>, </em><em>str</em><em>]</em><em>, </em><em>set</em><em>[</em><em>str</em><em>]</em><em>]</em>) – A mapping from <code class="docutils literal notranslate"><span class="pre">(old_variable_name,</span> <span class="pre">scope_name)</span></code> tuples
+to the set of candidate new variable names collected across nodes.</p></li>
+<li><p><strong>libo</strong> (<em>str</em>) – The name of the original library.</p></li>
+<li><p><strong>libn</strong> (<em>str</em>) – The name of the new library.</p></li>
+<li><p><strong>oldapi</strong> (<em>str</em>) – The old API name, excluded from rename candidates.</p></li>
+<li><p><strong>nodeo</strong> (<em>ast.AST</em><em> | </em><em>None</em>) – The specific old API call node, used for node-level mapping
+when provided alongside <code class="docutils literal notranslate"><span class="pre">noden</span></code>, <code class="docutils literal notranslate"><span class="pre">name1</span></code>, and <code class="docutils literal notranslate"><span class="pre">name2</span></code>.</p></li>
+<li><p><strong>noden</strong> (<em>ast.AST</em><em> | </em><em>None</em>) – The specific new API call node, used for node-level mapping.</p></li>
+<li><p><strong>name1</strong> (<em>str</em><em> | </em><em>None</em>) – The scope name of <code class="docutils literal notranslate"><span class="pre">nodeo</span></code>, used to restrict node-level
+mapping to the correct scope.</p></li>
+<li><p><strong>name2</strong> (<em>str</em><em> | </em><em>None</em>) – The scope name of <code class="docutils literal notranslate"><span class="pre">noden</span></code>, used to restrict node-level
+mapping to the correct scope.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A mapping from each old variable name to its resolved new name.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict[str, str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-pig.synth.sketch">
+<span id="sketch"></span><h2>sketch<a class="headerlink" href="#module-pig.synth.sketch" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="pig.synth.sketch.PreRequired">
+<span class="sig-prename descclassname"><span class="pre">pig.synth.sketch.</span></span><span class="sig-name descname"><span class="pre">PreRequired</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">val</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">history</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mappings</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">CENs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">UnAssignedVarsO</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ParentO</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ParentN</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coden</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">FuncDefs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">OldApi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">libn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">libo</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">apis</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b_imports</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b_surround</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rootb_str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">roota_str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rooto</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">roota</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">has_dec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pig.synth.sketch.PreRequired" title="Link to this definition"></a></dt>
+<dd><p>Resolve unassigned variables in a migrated node by adding surround nodes and imports.</p>
+<p>For a given <code class="docutils literal notranslate"><span class="pre">(key,</span> <span class="pre">val)</span></code> pair representing an old-to-new API node
+mapping, identifies variables used in <code class="docutils literal notranslate"><span class="pre">val</span></code> that are not yet assigned
+in the new code (<code class="docutils literal notranslate"><span class="pre">target_names</span></code>), then attempts to satisfy them in two
+stages:</p>
+<ol class="arabic simple">
+<li><p><strong>Surround nodes</strong> (if <code class="docutils literal notranslate"><span class="pre">b_surround</span></code> is <code class="docutils literal notranslate"><span class="pre">True</span></code>): calls
+<code class="xref py py-func docutils literal notranslate"><span class="pre">synthesis.Surround()</span></code> to find and insert neighbouring statements
+from the old code that define the remaining variables.</p></li>
+<li><p><strong>Import statements</strong> (if <code class="docutils literal notranslate"><span class="pre">b_imports</span></code> is <code class="docutils literal notranslate"><span class="pre">True</span></code>): calls
+<code class="xref py py-func docutils literal notranslate"><span class="pre">fix_import.Importfind()</span></code> with full path-checking for each
+variable still unresolved after stage 1; otherwise falls back to a
+direct import lookup (<code class="docutils literal notranslate"><span class="pre">check=False</span></code>).</p></li>
+</ol>
+<p>Variables that appear in <code class="docutils literal notranslate"><span class="pre">CENs</span></code>, <code class="docutils literal notranslate"><span class="pre">FuncDefs</span></code>, <code class="docutils literal notranslate"><span class="pre">UnAssignedVarsO</span></code>,
+or the current variable rename <code class="docutils literal notranslate"><span class="pre">mappings</span></code> are excluded from
+<code class="docutils literal notranslate"><span class="pre">target_names</span></code> before resolution begins. If <code class="docutils literal notranslate"><span class="pre">val</span></code> references the old
+API name as a load (but not a store), it is added back to
+<code class="docutils literal notranslate"><span class="pre">target_names</span></code> to ensure the corresponding import is included.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>h</strong> (<em>ast.AST</em>) – The current working AST being built up, modified in-place by
+<code class="xref py py-func docutils literal notranslate"><span class="pre">synthesis.Surround()</span></code>.</p></li>
+<li><p><strong>key</strong> (<em>ast.AST</em>) – The original old API call node that triggered this migration
+step.</p></li>
+<li><p><strong>val</strong> (<em>ast.AST</em>) – The new API node that replaces <code class="docutils literal notranslate"><span class="pre">key</span></code>.</p></li>
+<li><p><strong>history</strong> (<em>dict</em>) – A mutable state dict tracking processed nodes; its
+<code class="docutils literal notranslate"><span class="pre">'changes'</span></code> entry is updated with any newly added surround nodes.</p></li>
+<li><p><strong>mappings</strong> (<em>dict</em>) – The variable rename mapping from
+<code class="docutils literal notranslate"><span class="pre">(old_name,</span> <span class="pre">scope_name)</span></code> to candidate new names, used to exclude
+already-resolved variables from <code class="docutils literal notranslate"><span class="pre">target_names</span></code>.</p></li>
+<li><p><strong>CENs</strong> (<em>set</em>) – The set of built-in and context-defined names to exclude
+from dependency resolution.</p></li>
+<li><p><strong>UnAssignedVarsO</strong> (<em>dict</em>) – A mapping from scope name to the set of
+variables that are unassigned in the old code’s scope.</p></li>
+<li><p><strong>ParentO</strong> – The parent mapping of the old code as produced by
+<code class="xref py py-func docutils literal notranslate"><span class="pre">call.ParentAst()</span></code>.</p></li>
+<li><p><strong>ParentN</strong> – The parent mapping of the new code as produced by
+<code class="xref py py-func docutils literal notranslate"><span class="pre">call.ParentAst()</span></code>.</p></li>
+<li><p><strong>coden</strong> (<em>ast.AST</em>) – The AST of the new (LLM-generated) code, passed to
+<code class="xref py py-func docutils literal notranslate"><span class="pre">fix_import.Importfind()</span></code> for import resolution.</p></li>
+<li><p><strong>FuncDefs</strong> (<em>set</em>) – The set of function names defined in the old code,
+excluded from <code class="docutils literal notranslate"><span class="pre">target_names</span></code>.</p></li>
+<li><p><strong>OldApi</strong> (<em>str</em>) – The old API name; if referenced as a load in <code class="docutils literal notranslate"><span class="pre">val</span></code>,
+it is added to <code class="docutils literal notranslate"><span class="pre">target_names</span></code> to ensure its import is retained.</p></li>
+<li><p><strong>libn</strong> (<em>str</em>) – The name of the new library.</p></li>
+<li><p><strong>libo</strong> (<em>str</em>) – The name of the original library.</p></li>
+<li><p><strong>apis</strong> – The API map of the new library, passed through to
+<code class="xref py py-func docutils literal notranslate"><span class="pre">fix_import.Importfind()</span></code>.</p></li>
+<li><p><strong>b_imports</strong> (<em>bool</em>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, resolve remaining variables to import
+statements using full path validation; otherwise use direct lookup.</p></li>
+<li><p><strong>b_surround</strong> (<em>bool</em>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, attempt to resolve unassigned variables
+by inserting surround nodes from the old code before falling back to
+imports.</p></li>
+<li><p><strong>rootb_str</strong> (<em>str</em>) – The unparsed source string of the old code, passed
+through to <code class="xref py py-func docutils literal notranslate"><span class="pre">synthesis.Surround()</span></code> for GumTree matching.</p></li>
+<li><p><strong>roota_str</strong> (<em>str</em>) – The unparsed source string of the new code, passed
+through to <code class="xref py py-func docutils literal notranslate"><span class="pre">synthesis.Surround()</span></code> for GumTree matching.</p></li>
+<li><p><strong>rooto</strong> (<em>ast.AST</em>) – The AST of the old code.</p></li>
+<li><p><strong>roota</strong> (<em>ast.AST</em>) – The AST of the new code.</p></li>
+<li><p><strong>has_dec</strong> (<em>bool</em>) – Reserved for future use. Defaults to <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A tuple <code class="docutils literal notranslate"><span class="pre">(h,</span> <span class="pre">NCImport,</span> <span class="pre">CENs1,</span> <span class="pre">history)</span></code> where <code class="docutils literal notranslate"><span class="pre">h</span></code> is the
+updated working AST, <code class="docutils literal notranslate"><span class="pre">NCImport</span></code> is the set of newly resolved import
+nodes, <code class="docutils literal notranslate"><span class="pre">CENs1</span></code> is the updated set of resolved import names, and
+<code class="docutils literal notranslate"><span class="pre">history</span></code> is the updated history dict.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple[ast.AST, set, set, dict]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pig.synth.sketch.migrator">
+<span class="sig-prename descclassname"><span class="pre">pig.synth.sketch.</span></span><span class="sig-name descname"><span class="pre">migrator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">OldApi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">OCNs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ParentN</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ParentO</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">codeo</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coden</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">libo</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">libn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">history</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">FuncDefs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">UnAssignedVarsO</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">CENs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">OldTree1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">codeo_str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coden_str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">apis</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b_imports</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b_varmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b_surround</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b_postprocess</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gumtree</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pig.synth.sketch.migrator" title="Link to this definition"></a></dt>
+<dd><p>Migrate all old API call sites in <code class="docutils literal notranslate"><span class="pre">codeo</span></code> to their new API equivalents.</p>
+<p>For each old API call node in <code class="docutils literal notranslate"><span class="pre">OCNs[OldApi]</span></code>, finds the corresponding
+new API node in <code class="docutils literal notranslate"><span class="pre">coden</span></code> via GumTree-based tree matching, applies
+variable rename mappings, resolves unassigned variables through surround
+nodes and import statements, and returns the fully migrated AST.</p>
+<p>The migration proceeds in four stages:</p>
+<ol class="arabic simple">
+<li><p><strong>Classification</strong> – partitions <code class="docutils literal notranslate"><span class="pre">OCNs[OldApi]</span></code> into normal
+statement nodes, decorator nodes, class-base nodes, exception
+handlers, and type-annotation args.</p></li>
+<li><p><strong>Matching</strong> – for each normal node, uses <code class="xref py py-func docutils literal notranslate"><span class="pre">matching.matcher()</span></code>
+(or <code class="xref py py-func docutils literal notranslate"><span class="pre">llm_pre.MatchName()</span></code> for structural nodes) to find the
+corresponding new node in <code class="docutils literal notranslate"><span class="pre">coden</span></code>. Nodes for which no match is
+found are added to <code class="docutils literal notranslate"><span class="pre">del_nodes_cands</span></code> for later removal.</p></li>
+<li><p><strong>Pre-processing</strong> – for each <code class="docutils literal notranslate"><span class="pre">(old,</span> <span class="pre">new)</span></code> pair in <code class="docutils literal notranslate"><span class="pre">result</span></code>,
+calls <a class="reference internal" href="#pig.synth.sketch.PreRequired" title="pig.synth.sketch.PreRequired"><code class="xref py py-func docutils literal notranslate"><span class="pre">PreRequired()</span></code></a> to insert surround nodes and import
+statements that satisfy unresolved variable references.</p></li>
+<li><p><strong>Post-processing</strong> – applies variable rename mappings via
+<code class="xref py py-func docutils literal notranslate"><span class="pre">total_mappings()</span></code>, rewrites the working AST <code class="docutils literal notranslate"><span class="pre">h</span></code> in-place,
+and removes any nodes in <code class="docutils literal notranslate"><span class="pre">del_nodes_cands</span></code> that were not matched.</p></li>
+</ol>
+<p>Special cases handled during matching:</p>
+<ul class="simple">
+<li><p><code class="xref py py-class docutils literal notranslate"><span class="pre">ast.ExceptHandler</span></code> nodes are matched at the handler or
+<code class="docutils literal notranslate"><span class="pre">Try</span></code> level and stored by their <code class="docutils literal notranslate"><span class="pre">.type</span></code> attribute.</p></li>
+<li><p><code class="xref py py-class docutils literal notranslate"><span class="pre">ast.Name</span></code> nodes matched to <code class="xref py py-class docutils literal notranslate"><span class="pre">ast.arg</span></code> are replaced
+by the argument’s type annotation.</p></li>
+<li><p><code class="xref py py-class docutils literal notranslate"><span class="pre">ast.With</span></code> / <code class="xref py py-class docutils literal notranslate"><span class="pre">ast.AsyncWith</span></code> nodes are matched
+as whole context-manager statements.</p></li>
+<li><p>Decorator nodes that match a <code class="xref py py-class docutils literal notranslate"><span class="pre">ast.ClassDef</span></code> or
+<code class="xref py py-class docutils literal notranslate"><span class="pre">ast.FunctionDef</span></code> have their bodies merged rather than
+replaced.</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>OldApi</strong> (<em>str</em>) – The old API name whose call sites are to be migrated.</p></li>
+<li><p><strong>OCNs</strong> – A mapping from API name to the list of AST nodes where
+that API is used, as produced by <code class="xref py py-class docutils literal notranslate"><span class="pre">call.Preparation</span></code>.</p></li>
+<li><p><strong>ParentN</strong> (<em>dict</em>) – The parent mapping of the new code as produced by
+<code class="xref py py-func docutils literal notranslate"><span class="pre">call.ParentAst()</span></code>.</p></li>
+<li><p><strong>ParentO</strong> (<em>dict</em>) – The parent mapping of the old code as produced by
+<code class="xref py py-func docutils literal notranslate"><span class="pre">call.ParentAst()</span></code>.</p></li>
+<li><p><strong>codeo</strong> (<em>ast.AST</em>) – The AST of the original (old API) code.</p></li>
+<li><p><strong>coden</strong> (<em>ast.AST</em>) – The AST of the new (LLM-generated) code.</p></li>
+<li><p><strong>libo</strong> (<em>str</em>) – The name of the original library.</p></li>
+<li><p><strong>libn</strong> (<em>str</em>) – The name of the new library.</p></li>
+<li><p><strong>history</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>dict</em><em>]</em>) – A mutable state dict tracking processed nodes and
+accumulated changes across multiple <code class="docutils literal notranslate"><span class="pre">SketchMaker</span></code> calls.</p></li>
+<li><p><strong>FuncDefs</strong> – The set of function names defined in the old code,
+excluded from variable dependency resolution.</p></li>
+<li><p><strong>UnAssignedVarsO</strong> – A mapping from scope name to the set of
+variables unassigned in the old code’s scope.</p></li>
+<li><p><strong>CENs</strong> (<em>set</em>) – The set of built-in and context-defined names to exclude
+from dependency resolution.</p></li>
+<li><p><strong>OldTree1</strong> – The GumTree representation of the old code, used by
+<code class="xref py py-func docutils literal notranslate"><span class="pre">matching.var_divide()</span></code> for sub-expression matching.</p></li>
+<li><p><strong>ParentO1</strong> – An alternative parent mapping of the old code used
+for deeper ancestor lookups.</p></li>
+<li><p><strong>codeo_str</strong> (<em>str</em>) – The unparsed source string of the old code.</p></li>
+<li><p><strong>coden_str</strong> (<em>str</em>) – The unparsed source string of the new code.</p></li>
+<li><p><strong>apis</strong> – The API map of the new library, passed to
+<code class="xref py py-func docutils literal notranslate"><span class="pre">fix_import.Importfind()</span></code> and <code class="xref py py-func docutils literal notranslate"><span class="pre">matching.filter_stmt()</span></code>.</p></li>
+<li><p><strong>b_imports</strong> (<em>bool</em>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, resolve unassigned variables to import
+statements using full path validation. Defaults to <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p></li>
+<li><p><strong>b_varmap</strong> (<em>bool</em>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, apply variable rename mappings to the
+migrated nodes. Defaults to <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p></li>
+<li><p><strong>b_surround</strong> (<em>bool</em>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, insert surround nodes from the old code
+to satisfy unresolved variable references. Defaults to <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p></li>
+<li><p><strong>b_postprocess</strong> (<em>bool</em>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, run the post-processing step to apply
+rename mappings and clean up deleted nodes. Defaults to <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p></li>
+<li><p><strong>gumtree</strong> (<em>bool</em>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, use the custom GumTree matcher
+(<code class="docutils literal notranslate"><span class="pre">ours.jar</span></code>); otherwise use the default matcher. Defaults to
+<code class="docutils literal notranslate"><span class="pre">True</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The migrated AST with all matched old API nodes replaced by
+their new equivalents, surround nodes inserted, and imports resolved.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ast.AST</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-pig.synth.synthesis">
+<span id="synthesis"></span><h2>synthesis<a class="headerlink" href="#module-pig.synth.synthesis" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pig.synth.synthesis.AsyncFD">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pig.synth.synthesis.</span></span><span class="sig-name descname"><span class="pre">AsyncFD</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">NCF</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">check0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">check1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pig.synth.synthesis.AsyncFD" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pig.synth.synthesis.FindSurFCs">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pig.synth.synthesis.</span></span><span class="sig-name descname"><span class="pre">FindSurFCs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nv</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pig.synth.synthesis.FindSurFCs" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pig.synth.synthesis.ImportDeleter">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pig.synth.synthesis.</span></span><span class="sig-name descname"><span class="pre">ImportDeleter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">libo</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pig.synth.synthesis.ImportDeleter" title="Link to this definition"></a></dt>
+<dd><p>Remove all import statements that reference a given library.</p>
+<p>Walks the AST and strips any <code class="xref py py-class docutils literal notranslate"><span class="pre">ast.Import</span></code> or
+<code class="xref py py-class docutils literal notranslate"><span class="pre">ast.ImportFrom</span></code> node whose module or alias name contains
+<code class="docutils literal notranslate"><span class="pre">libo</span></code>. A special case handles <code class="docutils literal notranslate"><span class="pre">'ruamel.yaml'</span></code> which uses a dotted
+top-level name.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>libo</strong> (<em>str</em>) – The library name to remove from import statements.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pig.synth.synthesis.NameBool">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pig.synth.synthesis.</span></span><span class="sig-name descname"><span class="pre">NameBool</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ctx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">depth</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">usedvars</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pig.synth.synthesis.NameBool" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pig.synth.synthesis.SynthDel">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pig.synth.synthesis.</span></span><span class="sig-name descname"><span class="pre">SynthDel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ONs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">UnAssVars</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">UnUseVars</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">history</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">replace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">replacenode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">usedvars</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pig.synth.synthesis.SynthDel" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pig.synth.synthesis.SynthImport">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pig.synth.synthesis.</span></span><span class="sig-name descname"><span class="pre">SynthImport</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">NCImports</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pig.synth.synthesis.SynthImport" title="Link to this definition"></a></dt>
+<dd><p>Prepend a set of new import statements to the module body.</p>
+<p>Visits the <code class="xref py py-class docutils literal notranslate"><span class="pre">ast.Module</span></code> node and inserts all nodes in
+<code class="docutils literal notranslate"><span class="pre">NCImports</span></code> at the beginning of <code class="docutils literal notranslate"><span class="pre">node.body</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>NCImports</strong> (<em>set</em><em>[</em><em>Union</em><em>[</em><em>ast.Import</em><em>, </em><em>ast.Module</em><em>, </em><em>ast.ImportFrom</em><em>]</em><em>]</em>) – The set of import nodes to prepend.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pig.synth.synthesis.SynthSame">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pig.synth.synthesis.</span></span><span class="sig-name descname"><span class="pre">SynthSame</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">OCNP</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">NCNP</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">history</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ParentO</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">HAS_CB</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">HAS_DEC</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pig.synth.synthesis.SynthSame" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pig.synth.synthesis.TrimRoot">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pig.synth.synthesis.</span></span><span class="sig-name descname"><span class="pre">TrimRoot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">targets</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exception</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pig.synth.synthesis.TrimRoot" title="Link to this definition"></a></dt>
+<dd><p>Remove a specific set of statement nodes from the AST.</p>
+<p>Walks the AST and returns <code class="docutils literal notranslate"><span class="pre">None</span></code> for any node found in <code class="docutils literal notranslate"><span class="pre">targets</span></code>,
+effectively deleting it. <code class="xref py py-class docutils literal notranslate"><span class="pre">ast.With</span></code> and <code class="xref py py-class docutils literal notranslate"><span class="pre">ast.AsyncWith</span></code>
+nodes that match <code class="docutils literal notranslate"><span class="pre">exception</span></code> are preserved regardless of whether they
+appear in <code class="docutils literal notranslate"><span class="pre">targets</span></code>.</p>
+<p>Intended for cleaning up <code class="docutils literal notranslate"><span class="pre">With</span></code>/<code class="docutils literal notranslate"><span class="pre">AsyncWith</span></code> target statements that
+have been absorbed into a new context-manager node.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>targets</strong> (<em>list</em><em>[</em><em>ast.stmt</em><em>]</em>) – The list of statement nodes to remove.</p></li>
+<li><p><strong>exception</strong> (<em>ast.stmt</em>) – A single node that must never be removed, even if it
+appears in <code class="docutils literal notranslate"><span class="pre">targets</span></code> (typically the new <code class="docutils literal notranslate"><span class="pre">With</span></code>/<code class="docutils literal notranslate"><span class="pre">AsyncWith</span></code>
+node that absorbed the targets).</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pig.synth.synthesis.UnusedVars">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pig.synth.synthesis.</span></span><span class="sig-name descname"><span class="pre">UnusedVars</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">libo</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'module'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pig.synth.synthesis.UnusedVars" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pig.synth.synthesis.VarExtractor">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pig.synth.synthesis.</span></span><span class="sig-name descname"><span class="pre">VarExtractor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'module'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">check</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pig.synth.synthesis.VarExtractor" title="Link to this definition"></a></dt>
+<dd><p>Collect all variable names referenced within an AST, organised by scope.</p>
+<p>Walks the AST and records every <code class="xref py py-class docutils literal notranslate"><span class="pre">ast.Name</span></code> identifier into a
+per-scope dict keyed by the enclosing function or class name
+(<code class="docutils literal notranslate"><span class="pre">'module'</span></code> for top-level code). Import names are collected
+separately in <code class="docutils literal notranslate"><span class="pre">self.imports</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em>) – The initial scope name. Defaults to <code class="docutils literal notranslate"><span class="pre">'module'</span></code>.</p></li>
+<li><p><strong>check</strong> (<em>bool</em>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, <code class="docutils literal notranslate"><span class="pre">self.&lt;attr&gt;</span></code> assignments are tracked
+as separate qualified names (e.g. <code class="docutils literal notranslate"><span class="pre">'self.foo'</span></code>).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Variables<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>vars</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>set</em><em>[</em><em>str</em><em>]</em><em>]</em>) – Mapping from scope name to the set of variable names
+referenced in that scope.</p></li>
+<li><p><strong>imports</strong> (<em>set</em><em>[</em><em>str</em><em>]</em>) – Set of all imported names and aliases.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pig.synth.synthesis.stmt_to_dec">
+<span class="sig-prename descclassname"><span class="pre">pig.synth.synthesis.</span></span><span class="sig-name descname"><span class="pre">stmt_to_dec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">val</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ParentO</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">funcdefs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pig.synth.synthesis.stmt_to_dec" title="Link to this definition"></a></dt>
+<dd><p>Merge decorator lists from a new function node into the matching function in <code class="docutils literal notranslate"><span class="pre">h</span></code>.</p>
+<p>If the new function name <code class="docutils literal notranslate"><span class="pre">val.name</span></code> already exists in <code class="docutils literal notranslate"><span class="pre">funcdefs</span></code>,
+its decorator list is appended to the matching node found in <code class="docutils literal notranslate"><span class="pre">h</span></code>.
+Otherwise, the enclosing function or class of <code class="docutils literal notranslate"><span class="pre">key</span></code> in the old code
+is located via <code class="xref py py-func docutils literal notranslate"><span class="pre">call.FindFCParent()</span></code> and its decorator list is
+updated instead.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>key</strong> (<em>ast.AST</em>) – The old API call node used to locate the enclosing
+function or class when <code class="docutils literal notranslate"><span class="pre">val.name</span></code> is not in <code class="docutils literal notranslate"><span class="pre">funcdefs</span></code>.</p></li>
+<li><p><strong>val</strong> (<em>Union</em><em>[</em><em>ast.FunctionDef</em><em>, </em><em>ast.AsyncFunctionDef</em><em>]</em>) – The new function node whose decorator list is to be merged.</p></li>
+<li><p><strong>h</strong> (<em>ast.AST</em>) – The current working AST, walked to find the target function.</p></li>
+<li><p><strong>ParentO</strong> (<em>dict</em>) – The parent mapping of the old code as produced by
+<code class="xref py py-func docutils literal notranslate"><span class="pre">call.ParentAst()</span></code>.</p></li>
+<li><p><strong>funcdefs</strong> (<em>set</em>) – The set of function names already defined in the
+working AST.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The modified working AST with the decorator list updated.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ast.AST</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="pig.mapping.html" class="btn btn-neutral float-left" title="pig.mapping" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, moment.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

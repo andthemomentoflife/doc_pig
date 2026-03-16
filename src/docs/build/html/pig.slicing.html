@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pig.slicing &mdash; PIG 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=e1a16310" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=8d563738"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            PIG
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="quickstart/quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commons.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pig.html">API docs</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">PIG</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">pig.slicing</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/pig.slicing.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="pig-slicing">
+<h1>pig.slicing<a class="headerlink" href="#pig-slicing" title="Link to this heading"></a></h1>
+<p>This module contains components related to the slicing functionality within the PIG system. It includes functionalities for slicing code into manageable pieces, which can then be processed for API migration tasks.</p>
+<section id="module-pig.slicing.slicing">
+<span id="slicing"></span><h2>slicing<a class="headerlink" href="#module-pig.slicing.slicing" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pig.slicing.slicing.ContextRemover">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pig.slicing.slicing.</span></span><span class="sig-name descname"><span class="pre">ContextRemover</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nodes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">targets</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">blank</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pig.slicing.slicing.ContextRemover" title="Link to this definition"></a></dt>
+<dd><p>Remove irrelevant context nodes from the AST.</p>
+<p>Walks the AST and retains only nodes that are present in <code class="docutils literal notranslate"><span class="pre">self.nodes</span></code>,
+pruning branches whose bodies become empty after transformation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nodes</strong> (<em>set</em>) – The set of AST nodes to retain.</p></li>
+<li><p><strong>targets</strong> (<em>set</em>) – Optional set of target nodes.</p></li>
+<li><p><strong>blank</strong> (<em>bool</em>) – Whether to blank out removed nodes.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pig.slicing.slicing.FCTuple">
+<span class="sig-prename descclassname"><span class="pre">pig.slicing.slicing.</span></span><span class="sig-name descname"><span class="pre">FCTuple</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pig.slicing.slicing.FCTuple" title="Link to this definition"></a></dt>
+<dd><p>Return the <code class="docutils literal notranslate"><span class="pre">__init__</span></code> method of a class if it exists, otherwise the class itself.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>root</strong> (<em>ast.ClassDef</em>) – The class definition node to inspect.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The <code class="docutils literal notranslate"><span class="pre">__init__</span></code> <code class="xref py py-class docutils literal notranslate"><span class="pre">ast.FunctionDef</span></code> node if present,
+otherwise <code class="docutils literal notranslate"><span class="pre">root</span></code> itself.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ast.FunctionDef | ast.ClassDef</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pig.slicing.slicing.body_index">
+<span class="sig-prename descclassname"><span class="pre">pig.slicing.slicing.</span></span><span class="sig-name descname"><span class="pre">body_index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pig.slicing.slicing.body_index" title="Link to this definition"></a></dt>
+<dd><p>Find the index of <code class="docutils literal notranslate"><span class="pre">node</span></code> within the body of <code class="docutils literal notranslate"><span class="pre">parent</span></code>.</p>
+<p>Searches through the possible body sections of <code class="docutils literal notranslate"><span class="pre">parent</span></code> in order:
+<code class="docutils literal notranslate"><span class="pre">body</span></code>, <code class="docutils literal notranslate"><span class="pre">orelse</span></code>, exception handlers (for <code class="xref py py-class docutils literal notranslate"><span class="pre">ast.Try</span></code>), and
+<code class="docutils literal notranslate"><span class="pre">finalbody</span></code>. Returns the first match found.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>parent</strong> (<em>ast.AST</em>) – The parent AST node whose body sections are searched.</p></li>
+<li><p><strong>node</strong> (<em>ast.AST</em>) – The child AST node to locate.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The index of <code class="docutils literal notranslate"><span class="pre">node</span></code> as a plain <code class="docutils literal notranslate"><span class="pre">int</span></code> if found in <code class="docutils literal notranslate"><span class="pre">body</span></code>
+or <code class="docutils literal notranslate"><span class="pre">orelse</span></code>; a <code class="docutils literal notranslate"><span class="pre">(int,</span> <span class="pre">'handler',</span> <span class="pre">ExceptHandler)</span></code> tuple if found
+inside an exception handler’s body; or <code class="docutils literal notranslate"><span class="pre">None</span></code> if not found in any
+section.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int | tuple[int, str, ast.ExceptHandler] | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pig.slicing.slicing.bodyindex1">
+<span class="sig-prename descclassname"><span class="pre">pig.slicing.slicing.</span></span><span class="sig-name descname"><span class="pre">bodyindex1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">check</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'default'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pig.slicing.slicing.bodyindex1" title="Link to this definition"></a></dt>
+<dd><p>Locate <code class="docutils literal notranslate"><span class="pre">node</span></code> within a body section of <code class="docutils literal notranslate"><span class="pre">p1</span></code> and return context.</p>
+<p>Searches <code class="docutils literal notranslate"><span class="pre">body</span></code>, <code class="docutils literal notranslate"><span class="pre">orelse</span></code>, <code class="docutils literal notranslate"><span class="pre">finalbody</span></code>, and exception handler bodies
+(for <code class="xref py py-class docutils literal notranslate"><span class="pre">ast.Try</span></code>) in order. The <code class="docutils literal notranslate"><span class="pre">check</span></code> parameter controls what is
+returned once the node is found.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>p1</strong> (<em>ast.AST</em>) – The parent AST node to search within.</p></li>
+<li><p><strong>node</strong> (<em>ast.AST</em>) – The child AST node to locate.</p></li>
+<li><p><strong>check</strong> (<em>str</em>) – <p>Controls the return value:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">'default'</span></code>: return the integer index of <code class="docutils literal notranslate"><span class="pre">node</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">'aft'</span></code>: return the slice of the body after <code class="docutils literal notranslate"><span class="pre">node</span></code>
+(or the full body if <code class="docutils literal notranslate"><span class="pre">node</span></code> is last).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">'bef'</span></code>: return the sibling immediately before <code class="docutils literal notranslate"><span class="pre">node</span></code>,
+or <code class="docutils literal notranslate"><span class="pre">None</span></code> if <code class="docutils literal notranslate"><span class="pre">node</span></code> is first.</p></li>
+<li><p>any other value: return the sibling immediately after <code class="docutils literal notranslate"><span class="pre">node</span></code>,
+or <code class="docutils literal notranslate"><span class="pre">None</span></code> if <code class="docutils literal notranslate"><span class="pre">node</span></code> is last.</p></li>
+</ul>
+</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>An index, a list of nodes, a single sibling node, or <code class="docutils literal notranslate"><span class="pre">None</span></code>
+depending on <code class="docutils literal notranslate"><span class="pre">check</span></code> and the position of <code class="docutils literal notranslate"><span class="pre">node</span></code>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int | list[ast.AST] | ast.AST | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pig.slicing.slicing.delete_docstrings">
+<span class="sig-prename descclassname"><span class="pre">pig.slicing.slicing.</span></span><span class="sig-name descname"><span class="pre">delete_docstrings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pig.slicing.slicing.delete_docstrings" title="Link to this definition"></a></dt>
+<dd><p>Remove all docstrings from the AST.</p>
+<p>Walks the entire AST and strips the first expression statement from
+function and class definitions if it is a string literal (i.e. a docstring).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>root</strong> (<em>ast.Module</em>) – The root AST module node to process.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The modified AST module with all docstrings removed.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ast.Module</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pig.slicing.slicing.extract_name">
+<span class="sig-prename descclassname"><span class="pre">pig.slicing.slicing.</span></span><span class="sig-name descname"><span class="pre">extract_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pig.slicing.slicing.extract_name" title="Link to this definition"></a></dt>
+<dd><p>Get the name of the node.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>node</strong> (<em>Union</em><em>[</em><em>ast.FunctionDef</em><em>, </em><em>ast.AsyncFunctionDef</em><em>, </em><em>ast.ClassDef</em><em>, </em><em>ast.Module</em><em>]</em>) – The AST node to extract the name from.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The name of the node, or <code class="docutils literal notranslate"><span class="pre">'module'</span></code> if the node is an
+<code class="xref py py-class docutils literal notranslate"><span class="pre">ast.Module</span></code> or <code class="docutils literal notranslate"><span class="pre">None</span></code>, or <code class="docutils literal notranslate"><span class="pre">None</span></code> if the node type is unrecognized.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Optional[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pig.slicing.slicing.fill_pass">
+<span class="sig-prename descclassname"><span class="pre">pig.slicing.slicing.</span></span><span class="sig-name descname"><span class="pre">fill_pass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pig.slicing.slicing.fill_pass" title="Link to this definition"></a></dt>
+<dd><p>Fill empty bodies with <code class="docutils literal notranslate"><span class="pre">ast.Pass()</span></code> to avoid syntax errors.</p>
+<p>Walks the entire AST and appends a <code class="xref py py-class docutils literal notranslate"><span class="pre">ast.Pass</span></code> node to any
+empty body block found in functions, classes, control flow statements,
+exception handlers, and modules.</p>
+<p>Affected node types:</p>
+<ul class="simple">
+<li><p><code class="xref py py-class docutils literal notranslate"><span class="pre">ast.FunctionDef</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">ast.AsyncFunctionDef</span></code></p></li>
+<li><p><code class="xref py py-class docutils literal notranslate"><span class="pre">ast.ClassDef</span></code></p></li>
+<li><p><code class="xref py py-class docutils literal notranslate"><span class="pre">ast.With</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">ast.AsyncWith</span></code></p></li>
+<li><p><code class="xref py py-class docutils literal notranslate"><span class="pre">ast.If</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">ast.For</span></code></p></li>
+<li><p><code class="xref py py-class docutils literal notranslate"><span class="pre">ast.Try</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">ast.ExceptHandler</span></code></p></li>
+<li><p><code class="xref py py-class docutils literal notranslate"><span class="pre">ast.Module</span></code></p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>root</strong> (<em>ast.AST</em>) – The root AST node to process.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The modified AST with all empty bodies filled with <code class="docutils literal notranslate"><span class="pre">ast.Pass()</span></code>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ast.AST</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pig.slicing.slicing.find_need_node">
+<span class="sig-prename descclassname"><span class="pre">pig.slicing.slicing.</span></span><span class="sig-name descname"><span class="pre">find_need_node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">names</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nodes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">classdefs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">funcdefs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">libo</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pig.slicing.slicing.find_need_node" title="Link to this definition"></a></dt>
+<dd><p>Find necessary nodes that define or modify the given names before the given index.</p>
+<p>Walks the AST to collect assignment, annotated assignment, and <code class="docutils literal notranslate"><span class="pre">global</span></code>
+statement nodes that define any of the requested <code class="docutils literal notranslate"><span class="pre">names</span></code>. Only nodes
+that appear before <code class="docutils literal notranslate"><span class="pre">index</span></code> in body order are considered, unless the
+node is already in <code class="docutils literal notranslate"><span class="pre">nodes</span></code> or <code class="docutils literal notranslate"><span class="pre">target0</span></code> is a function/class definition.
+Class and function definitions matching <code class="docutils literal notranslate"><span class="pre">names</span></code> are appended last.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>root</strong> (<em>ast.Module</em>) – The AST module to search within.</p></li>
+<li><p><strong>names</strong> (<em>set</em>) – The set of names whose defining nodes are being sought.</p></li>
+<li><p><strong>nodes</strong> (<em>set</em>) – The accumulator set of already-collected nodes.</p></li>
+<li><p><strong>index</strong> (<em>int</em><em> | </em><em>tuple</em><em>[</em><em>int</em><em>, </em><em>str</em><em>, </em><em>ast.ExceptHandler</em><em>] </em><em>| </em><em>None</em>) – The body index before which to search. Either a plain
+<code class="docutils literal notranslate"><span class="pre">int</span></code>, a <code class="docutils literal notranslate"><span class="pre">(int,</span> <span class="pre">str,</span> <span class="pre">ExceptHandler)</span></code> tuple for nodes inside a
+<code class="docutils literal notranslate"><span class="pre">try</span></code> block, or <code class="docutils literal notranslate"><span class="pre">None</span></code> to match all positions.</p></li>
+<li><p><strong>classdefs</strong> (<em>dict</em>) – A mapping from class name to its <code class="xref py py-class docutils literal notranslate"><span class="pre">ast.ClassDef</span></code> node.</p></li>
+<li><p><strong>funcdefs</strong> (<em>dict</em>) – A mapping from function name to its
+<code class="xref py py-class docutils literal notranslate"><span class="pre">ast.FunctionDef</span></code> / <code class="xref py py-class docutils literal notranslate"><span class="pre">ast.AsyncFunctionDef</span></code> node.</p></li>
+<li><p><strong>libo</strong> (<em>str</em>) – The library name passed to <code class="xref py py-class docutils literal notranslate"><span class="pre">call.NameExtractor</span></code> to
+filter relevant name references.</p></li>
+<li><p><strong>target0</strong> – The node that triggered this search; excluded from results
+and used to determine index comparison behaviour.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A tuple of <code class="docutils literal notranslate"><span class="pre">(nodes,</span> <span class="pre">remaining_names)</span></code> where <code class="docutils literal notranslate"><span class="pre">nodes</span></code> is the
+updated set of collected nodes and <code class="docutils literal notranslate"><span class="pre">remaining_names</span></code> is the subset
+of <code class="docutils literal notranslate"><span class="pre">names</span></code> that could not be resolved.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple[set, set]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pig.slicing.slicing.find_use_node">
+<span class="sig-prename descclassname"><span class="pre">pig.slicing.slicing.</span></span><span class="sig-name descname"><span class="pre">find_use_node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">targets</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">libo</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pig.slicing.slicing.find_use_node" title="Link to this definition"></a></dt>
+<dd><p>Find the first node that uses any of the target names after the given index.</p>
+<p>Walks the AST and returns the first statement node (at or below <code class="docutils literal notranslate"><span class="pre">root</span></code>)
+that references one of the <code class="docutils literal notranslate"><span class="pre">targets</span></code> names and appears after <code class="docutils literal notranslate"><span class="pre">index</span></code>
+in the body order. Compound statements are inspected at their key
+sub-expression (e.g. <code class="docutils literal notranslate"><span class="pre">test</span></code> for <code class="docutils literal notranslate"><span class="pre">if</span></code>/<code class="docutils literal notranslate"><span class="pre">while</span></code>, <code class="docutils literal notranslate"><span class="pre">iter</span></code> for <code class="docutils literal notranslate"><span class="pre">for</span></code>).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>root</strong> (<em>ast.Module</em>) – The AST module to search within.</p></li>
+<li><p><strong>targets</strong> (<em>set</em>) – The set of names to look for.</p></li>
+<li><p><strong>index</strong> (<em>Union</em><em>[</em><em>int</em><em>, </em><em>tuple</em><em>[</em><em>int</em><em>, </em><em>str</em><em>, </em><em>ast.ExceptHandler</em><em>]</em><em>]</em>) – The body index after which to start matching. Either a plain
+<code class="docutils literal notranslate"><span class="pre">int</span></code> for top-level statements, or a <code class="docutils literal notranslate"><span class="pre">(int,</span> <span class="pre">str,</span> <span class="pre">ExceptHandler)</span></code>
+tuple for nodes inside a <code class="docutils literal notranslate"><span class="pre">try</span></code> block.</p></li>
+<li><p><strong>libo</strong> (<em>str</em>) – The library name passed to <code class="xref py py-class docutils literal notranslate"><span class="pre">call.NameExtractor</span></code> to
+filter relevant name references.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A tuple of <code class="docutils literal notranslate"><span class="pre">(matched_node,</span> <span class="pre">remaining_targets)</span></code> where
+<code class="docutils literal notranslate"><span class="pre">matched_node</span></code> is the first node that uses a target name, or
+<code class="docutils literal notranslate"><span class="pre">None</span></code> if no match is found.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple[ast.AST | None, set]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pig.slicing.slicing.index_info">
+<span class="sig-prename descclassname"><span class="pre">pig.slicing.slicing.</span></span><span class="sig-name descname"><span class="pre">index_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ParentO</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">OCN</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pig.slicing.slicing.index_info" title="Link to this definition"></a></dt>
+<dd><p>Collect the body index of each ancestor node up to the module root.</p>
+<p>Walks up the AST from <code class="docutils literal notranslate"><span class="pre">OCN</span></code> to the root <code class="xref py py-class docutils literal notranslate"><span class="pre">ast.Module</span></code> by
+repeatedly calling <code class="xref py py-func docutils literal notranslate"><span class="pre">call.FindSSParent()</span></code>, recording the index of
+each child within its parent’s body along the way.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ParentO</strong> – The parent object used to resolve ancestor relationships.</p></li>
+<li><p><strong>OCN</strong> – The starting AST node (Original Current Node) to walk up from.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A mapping from each ancestor node to the index of its child
+in that node’s body, from <code class="docutils literal notranslate"><span class="pre">OCN</span></code> up to the root module.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict[ast.AST, int]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pig.slicing.slicing.need_nodes">
+<span class="sig-prename descclassname"><span class="pre">pig.slicing.slicing.</span></span><span class="sig-name descname"><span class="pre">need_nodes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nodes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">codeo</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">CENs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Imps</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indexes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ParentO</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">funcdefs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">classdefs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">libo</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pig.slicing.slicing.need_nodes" title="Link to this definition"></a></dt>
+<dd><p>Transitively collect all AST nodes required by the given seed nodes.</p>
+<p>Starting from <code class="docutils literal notranslate"><span class="pre">nodes</span></code>, repeatedly extracts every name referenced by
+each node, resolves those names to their defining AST nodes via
+<a class="reference internal" href="#pig.slicing.slicing.find_need_node" title="pig.slicing.slicing.find_need_node"><code class="xref py py-func docutils literal notranslate"><span class="pre">find_need_node()</span></code></a>, and continues until no new nodes are discovered.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nodes</strong> (<em>set</em>) – The initial set of seed nodes whose dependencies are to
+be resolved.</p></li>
+<li><p><strong>codeo</strong> (<em>ast.Module</em>) – The top-level module node used as the fallback search root
+when traversal reaches the module scope.</p></li>
+<li><p><strong>CENs</strong> (<em>set</em>) – A set of built-in or context-defined names to exclude from
+dependency resolution.</p></li>
+<li><p><strong>Imps</strong> (<em>set</em>) – A set of imported names to exclude from dependency resolution.</p></li>
+<li><p><strong>indexes</strong> (<em>dict</em>) – A mapping from each ancestor node to the body index of
+its relevant child, as produced by <a class="reference internal" href="#pig.slicing.slicing.index_info" title="pig.slicing.slicing.index_info"><code class="xref py py-func docutils literal notranslate"><span class="pre">index_info()</span></code></a>.</p></li>
+<li><p><strong>ParentO</strong> – The parent-resolver object used to locate ancestor nodes
+via <code class="xref py py-func docutils literal notranslate"><span class="pre">call.FindSSParent()</span></code> and <code class="xref py py-func docutils literal notranslate"><span class="pre">call.FindFParent()</span></code>.</p></li>
+<li><p><strong>funcdefs</strong> (<em>dict</em>) – A mapping from function name to its defining node,
+used to resolve name references to functions.</p></li>
+<li><p><strong>classdefs</strong> (<em>dict</em>) – A mapping from class name to its defining node,
+used to resolve name references to classes.</p></li>
+<li><p><strong>libo</strong> (<em>str</em>) – The library name passed to <code class="xref py py-class docutils literal notranslate"><span class="pre">call.NameExtractor</span></code> to
+filter relevant name references.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The fully expanded set of nodes required to execute the seed nodes.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>set</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pig.slicing.slicing.slice">
+<span class="sig-prename descclassname"><span class="pre">pig.slicing.slicing.</span></span><span class="sig-name descname"><span class="pre">slice</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">OCNs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">codeo</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">apio</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ParentO</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">libo</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">libn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">funcdefs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">classdefs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">blank</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pig.slicing.slicing.slice" title="Link to this definition"></a></dt>
+<dd><p>Slice the AST to retain only nodes relevant to the given API call sites.</p>
+<p>Performs a five-step program slice on <code class="docutils literal notranslate"><span class="pre">codeo</span></code>:</p>
+<ol class="arabic simple">
+<li><p><strong>Mark targets</strong> – identify the AST nodes where the old API (<code class="docutils literal notranslate"><span class="pre">apio</span></code>)
+is used, handling special cases such as class bases, decorators, and
+exception handlers.</p></li>
+<li><p><strong>Mark use cases</strong> – for <code class="docutils literal notranslate"><span class="pre">Assign</span></code> nodes, trace forward to find
+subsequent statements that consume the assigned names.</p></li>
+<li><p><strong>Mark dependencies</strong> – transitively collect all nodes required to
+execute the targets via <a class="reference internal" href="#pig.slicing.slicing.need_nodes" title="pig.slicing.slicing.need_nodes"><code class="xref py py-func docutils literal notranslate"><span class="pre">need_nodes()</span></code></a>.</p></li>
+<li><p><strong>Remove context</strong> – strip all nodes not in the final set using
+<a class="reference internal" href="#pig.slicing.slicing.ContextRemover" title="pig.slicing.slicing.ContextRemover"><code class="xref py py-class docutils literal notranslate"><span class="pre">ContextRemover</span></code></a>.</p></li>
+<li><p><strong>Cleanup</strong> – insert <code class="docutils literal notranslate"><span class="pre">pass</span></code> into empty bodies with <a class="reference internal" href="#pig.slicing.slicing.fill_pass" title="pig.slicing.slicing.fill_pass"><code class="xref py py-func docutils literal notranslate"><span class="pre">fill_pass()</span></code></a>
+and remove unused imports with <code class="docutils literal notranslate"><span class="pre">autoflake</span></code>.</p></li>
+</ol>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>OCNs</strong> (<em>dict</em>) – A mapping from API name to the list of AST nodes (Old Call
+Nodes) where that API is referenced.</p></li>
+<li><p><strong>codeo</strong> (<em>ast.AST</em>) – The original AST module to slice.</p></li>
+<li><p><strong>apio</strong> (<em>str</em>) – The name of the old API whose usage sites are the slice
+criteria.</p></li>
+<li><p><strong>ParentO</strong> (<em>dict</em>) – The parent-resolver object used to locate ancestor nodes.</p></li>
+<li><p><strong>libo</strong> (<em>str</em>) – The name of the original library, used to filter name
+references during dependency resolution.</p></li>
+<li><p><strong>libn</strong> (<em>str</em>) – The name of the new library, excluded from dependency
+resolution alongside <code class="docutils literal notranslate"><span class="pre">libo</span></code>.</p></li>
+<li><p><strong>funcdefs</strong> – A mapping from function name to its defining AST node.</p></li>
+<li><p><strong>classdefs</strong> – A mapping from class name to its defining AST node.</p></li>
+<li><p><strong>blank</strong> (<em>bool</em>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, passes the blank flag through to
+<a class="reference internal" href="#pig.slicing.slicing.ContextRemover" title="pig.slicing.slicing.ContextRemover"><code class="xref py py-class docutils literal notranslate"><span class="pre">ContextRemover</span></code></a>. Defaults to <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A new <code class="xref py py-class docutils literal notranslate"><span class="pre">ast.Module</span></code> containing only the sliced code,
+parsed from the autoflake-cleaned unparsed output.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ast.Module</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, moment.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

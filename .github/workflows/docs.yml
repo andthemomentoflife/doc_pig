@@ -32,17 +32,17 @@ jobs:
 
 
       - name: Debug - show current directory
-        run: pwd
+        run: ls
 
       - name: Build Sphinx docs
         run: |
-          cd pig_doc/src/docs
+          cd src/docs
           make html
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: pig_doc/src/docs/_build/html
+          path: src/docs/_build/html
 
   deploy:
     needs: build
