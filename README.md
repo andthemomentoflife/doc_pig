@@ -7,4 +7,4 @@ This repository contains the documentation for PIG (Python library migration usi
 
 Project documentation is available here:
 
-https://moment.github.io/doc_pig
+https://andthemomentoflife.github.io/doc_pig
