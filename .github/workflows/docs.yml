@@ -28,7 +28,7 @@ jobs:
           cache: "pip"
 
       - name: Install dependencies
-        run: pip install -r pig_doc/src/docs/requirements.txt
+        run: pip install -r pig_doc/requirements.txt
 
       - name: Build Sphinx docs
         run: |

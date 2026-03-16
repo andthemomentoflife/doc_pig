@@ -1,0 +1,6 @@
+openai
+ollama
+rich
+Cython
+autoflake
+jpype
