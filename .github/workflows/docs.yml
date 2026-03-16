@@ -30,6 +30,10 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
+
+      - name: Debug - show current directory
+        run: pwd
+
       - name: Build Sphinx docs
         run: |
           cd pig_doc/src/docs
