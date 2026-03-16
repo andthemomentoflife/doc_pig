@@ -4,3 +4,5 @@ rich
 Cython
 autoflake
 jpype1
+sphinx
+sphinx_rtd_theme
