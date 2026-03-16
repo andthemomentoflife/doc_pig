@@ -3,4 +3,4 @@ ollama
 rich
 Cython
 autoflake
-jpype
+jpype1
